@@ -1,0 +1,1 @@
+rsync -azv --delete ../grassroots-web-portal-static-onepage/ ubuntu@149.155.193.70:portal-static-onepage/
