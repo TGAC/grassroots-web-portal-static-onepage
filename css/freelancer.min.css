@@ -569,3 +569,8 @@ footer .footer-below {
 .btn.active, .btn:active, .btn:focus {
     outline: 0
 }
+
+#header-section:before{
+    z-index: 1;
+    opacity: 0.2;
+}
