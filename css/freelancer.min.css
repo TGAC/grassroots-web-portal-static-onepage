@@ -574,3 +574,7 @@ footer .footer-below {
     z-index: 1;
     opacity: 0.2;
 }
+
+a.darker, a.darker:active, a.darker:focus, a.darker:hover{
+    color:  #00695C;
+}
