@@ -18,7 +18,16 @@ p.small {
 
 a, a.active, a:active, a:focus, a:hover {
     color: #18bc9c;
+    text-decoration: underline;
+    -webkit-text-underline-position: under;
+    -ms-text-underline-position: below;
+    text-underline-position: under;
+    /*text-underline-position: under;*/
     outline: 0
+}
+
+nav a, a.active, a:active, a:focus, a:hover {
+    text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -208,7 +217,7 @@ header.masthead {
     padding-bottom: 50px;
     text-align: center;
     color: #fff;
-    background: #18bc9c
+    /*background: #18bc9c*/
 }
 
 header.masthead img {
@@ -576,5 +585,7 @@ footer .footer-below {
 }
 
 a.darker, a.darker:active, a.darker:focus, a.darker:hover{
-    color:  #00695C;
+    text-decoration: underline;
+    color: white;
+    /*color:  #00695C;*/
 }
