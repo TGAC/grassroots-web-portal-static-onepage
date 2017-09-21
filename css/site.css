@@ -8,10 +8,16 @@ body {
     overflow-x: hidden
 }
 
+
 p {
-    font-size: 20px
+    font-size: 1em;
 }
 
+@media (min-width: 992px) {
+    p {
+        font-size: 20px
+    }
+}
 p.small {
     font-size: 16px
 }
