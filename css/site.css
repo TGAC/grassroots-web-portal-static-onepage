@@ -238,6 +238,11 @@ header.masthead .intro-text .skills {
     font-weight: 300
 }
 
+header.masthead p {
+    font-size: 1em;
+    font-weight: 200
+}
+
 @media (min-width: 768px) {
     header.masthead {
         padding-top: 200px;
@@ -250,6 +255,10 @@ header.masthead .intro-text .skills {
 
     header.masthead .intro-text .skills {
         font-size: 1.75em
+    }
+
+    header.masthead p {
+        font-size: 1.25em
     }
 }
 
