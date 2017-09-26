@@ -29,7 +29,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="/new/" style="text-transform: none ! important;">Grassroots
+        <a class="navbar-brand js-scroll-trigger" href="index.html" style="text-transform: none ! important;">Grassroots
             Infrastructure</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
@@ -40,19 +40,19 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/new/index.html#services">Services</a>
+                    <a class="nav-link js-scroll-trigger" href="index.html#services">Services</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="https://wheatis.tgac.ac.uk/grassroots/api/">Docs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/new/index.html#about">About</a>
+                    <a class="nav-link js-scroll-trigger" href="index.html#about">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger active" href="blog.html">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="/new/index.html#contact">Contact</a>
+                    <a class="nav-link js-scroll-trigger" href="index.html#contact">Contact</a>
                 </li>
             </ul>
             <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;" src="img/logo-white.png"/>
@@ -337,170 +337,6 @@
                             <p>The Davrods software is available to download at <a
                                     href="https://github.com/billyfish/davrods">https://github.com/billyfish/davrods</a>.
                             </p>
-
-
-                            <!--<h3 id="toc_1">Introduction</h3>-->
-
-                            <!--<p>One of the major aims of the Grassroots Infrastructure is to allow users to share their-->
-                            <!--wheat data as easily and seamlessly as possible. To do this, we use <a-->
-                            <!--href="https://irods.org/" title="iRODS: Open Source Data Management Software">iRODS</a>[1]-->
-                            <!--which is a system allowing users to create files and directories as normal with extra-->
-                            <!--features such as distributed storage viewable across different institutions and the-->
-                            <!--ability to add metadata to all of the files and directories. </p>-->
-
-                            <!--<p>iRODS comes with command-line clients to allow access to its storage and Chris Smeele and-->
-                            <!--Ton Smeele developed an Apache httpd[2] module, <a-->
-                            <!--href="https://github.com/UtrechtUniversity/davrods"-->
-                            <!--title="Davrods - An Apache WebDAV interface to iRODS">Davrods</a>[3] to allow-->
-                            <!--access to it using standard WebDAV commands. There were still some functionality that we-->
-                            <!--wanted to add that was missing from Davrods, namely:</p>-->
-
-                            <!--<ul>-->
-                            <!--<li>Themeable listings</li>-->
-                            <!--<li>Public access</li>-->
-                            <!--<li>Metadata display</li>-->
-                            <!--</ul>-->
-
-                            <!--<h3 id="toc_2">Themeable listings</h3>-->
-
-                            <!--<p>The standard web pages produced by Davrods resembled the basic directory listings-->
-                            <!--produced by Apache and we wanted to increase the functionality of these pages as well as-->
-                            <!--making their look and feel customisable. To do this we based our approach upon that used-->
-                            <!--by the <a href="https://httpd.apache.org/docs/2.4/mod/mod_autoindex.html">autoindex-->
-                            <!--module</a>[4]. We added the ability to customise the HTML that would go in the head-->
-                            <!--section of the web page as well as the parts before and after the iRODS directory-->
-                            <!--listings. Along with this, the columns of the listings table were marked up to allow for-->
-                            <!--easy styling. The link to get to the parent collection was replaced with a full-->
-                            <!--navigation element with a full set of breadcrumbs.</p>-->
-
-                            <!--<p>Another concept that we replicated from the autoindex module was the ability to specify-->
-                            <!--default icons to use for the data objects and collections along with more difficult-->
-                            <!--icons depending upon their file types.</p>-->
-
-                            <!--<p><img class="img-fluid img-centered" src="img/blog1_edit_metadata.png" width="100%"-->
-                            <!--title="Edit metadata" alt="Editing the metadata in a browser"/>-->
-                            <!--Figure 1: Editing the metadata within a browser.</p>-->
-
-                            <!--<h3 id="toc_3">Public access</h3>-->
-
-                            <!--<p>iRODS workflow is based around the idea that users log in to see the data that they have-->
-                            <!--permissions to access. Often for websites, there is a desire to give public access to-->
-                            <!--browse a list of files and directories without the need to log in. So another feature-->
-                            <!--that we added to Davrods was the ability to have a default user to be specified in the-->
-                            <!--Apache server configuration that would be used to log into the iRODS system without the-->
-                            <!--need for any user intervention. In effect, creating a public-facing website-->
-                            <!--indistinguishable from one that allows a user to browse regular files and-->
-                            <!--directories.</p>-->
-
-                            <!--<h3 id="toc_4">Metadata display</h3>-->
-
-                            <!--<p>One of the major benefits of iRODS is its ability to add metadata as attribute-value-->
-                            <!--pairs to any of the data objects or collections stored within it. The ability to view,-->
-                            <!--edit and search across this data is a really useful feature for end users and so we-->
-                            <!--wanted to add these capabilities to Davrods too. Two features we wanted available were-->
-                            <!--to expose each of the metadata attribute-value pairs as hyperlinks to find data objects-->
-                            <!--or collections also containing the same pair, as well as having a general search-->
-                            <!--functionality to search across the entire metadata collection. Going further, adding the-->
-                            <!--ability to add, edit or delete metadata from within in a web browser was another really-->
-                            <!--useful feature that we wanted.</p>-->
-
-                            <!--<p>To do this we created a Representational state transfer (REST) API for querying and-->
-                            <!--manipulating the iRODS metadata. The base address for this API is at-->
-                            <!--/davrods/api/metadata though this can be changed to be anything you would like by-->
-                            <!--altering the parameter in the Apache configuration. It contains the following-->
-                            <!--functions:</p>-->
-
-                            <!--<ul>-->
-                            <!--<li><p><strong>get</strong> : This is for getting all of the associated metadata for an-->
-                            <!--iRODS item. It takes a single parameter, <em>id</em>, which is the iRODS id of the-->
-                            <!--data object or collection that you wish to get the metadata pairs for. For example-->
-                            <!--to get the metadata for a data object with the id of 1.10021, the URL to call would-->
-                            <!--be </p>-->
-
-                            <!--<p><code>/davrods/api/metadata/get?id=1.10021</code></p></li>-->
-                            <!--<li><p><strong>search</strong>: This API call is for getting a list of all data objects-->
-                            <!--and collections that have a given metadata attribute-value pair. It takes two-->
-                            <!--parameters: <em>key</em>, which is the attribute to search for and, <em>value</em>,-->
-                            <!--which specifies the metadata value. There is a third optional parameter,-->
-                            <!--<em>units</em> for specifying the units that the metadata attribute-value pair must-->
-                            <!--also have. So to search for all of the data objects and collections that have an-->
-                            <!--attribute called <em>volume</em> with a value of <em>11</em>, the URL to call would-->
-                            <!--be </p>-->
-
-                            <!--<p><code>/davrods/api/metadata/search?key=volume&amp;value=11</code></p></li>-->
-                            <!--<li><p><strong>add</strong>: This API call is for adding a metadata attribute-value pair-->
-                            <!--to a data object of collection. It takes three parameters: <em>id</em>, which is the-->
-                            <!--iRODS id of the data object or collection to add the metadata to, <em>key</em>,-->
-                            <!--which is the attribute to add and, <em>value</em>, which specifies the metadata-->
-                            <!--value to be added. As with the <em>search</em> call listed above, there is a fourth-->
-                            <!--optional parameter, <em>units</em> for specifying the units that the metadata-->
-                            <!--attribute-value pair will have. So to add an attribute called <em>volume</em> with a-->
-                            <!--value of <em>11</em> to a data object with the id of 1.10021, the URL to call would-->
-                            <!--be </p>-->
-
-                            <!--<p><code>/davrods/api/metadata/add?id=1.10021&amp;key=volume&amp;value=11</code></p>-->
-                            <!--</li>-->
-                            <!--<li><p><strong>edit</strong>: This API call is for editing a metadata attribute-value-->
-                            <!--pair for a data object of collection and replacing one or more of its attribute,-->
-                            <!--value or units. It takes the following required parameters: <em>id</em>, which is-->
-                            <!--the iRODS id of the data object or collection to delete the metadata from,-->
-                            <!--<em>key</em>, which is the attribute to edit, <em>value</em>, which specifies the-->
-                            <!--metadata value to edit. Again, there is an optional parameter, <em>units</em> for-->
-                            <!--specifying the units that the metadata attribute-value pair must also have to match.-->
-                            <!--There must also be one or more of the following parameters to specify how the-->
-                            <!--metadata will be altered: <em>new_key</em>, which is for specifying the new name for-->
-                            <!--the attribute, <em>new_value</em>, for specifying the new metadata value and <em>new_units</em>-->
-                            <!--for specifying the units that the metadata attribute-value pair will now have. So to-->
-                            <!--edit an attribute called <em>volume</em> with a value of <em>11</em> and units of-->
-                            <!--<em>decibels</em> for a data object with the id of 1.10021 and give it a new value-->
-                            <!--of 8 and units of litres, the URL to call would be </p>-->
-
-                            <!--<p><code>/davrods/api/metadata/edit?id=1.10021&amp;key=volume&amp;value=11&amp;units=decibels&amp;new_value=8&amp;new_units=litres</code>-->
-                            <!--</p></li>-->
-                            <!--<li><p><strong>delete</strong>: This API call is for deleting a metadata attribute-value-->
-                            <!--pair from a data object of collection. It takes three parameters: <em>id</em>, which-->
-                            <!--is the iRODS id of the data object or collection to delete the metadata from, <em>key</em>,-->
-                            <!--which is the attribute to delete for and, <em>value</em>, which specifies the-->
-                            <!--metadata value to delete. As before, there is a third optional parameter,-->
-                            <!--<em>units</em> for specifying the units that the metadata attribute-value pair must-->
-                            <!--also have to match. So to delete an attribute called <em>volume</em> with a value of-->
-                            <!--<em>11</em> and units of <em>decibels</em> from a data object with the id of-->
-                            <!--1.10021, the URL to call would be </p>-->
-
-                            <!--<p><code>/davrods/api/metadata/delete?id=1.10021&amp;key=volume&amp;value=11&amp;units=decibels</code>-->
-                            <!--</p></li>-->
-                            <!--</ul>-->
-
-                            <!--<p>To demonstrate this REST API, we have developed some client-side JavaScript functions so-->
-                            <!--that users can call all of these routines comfortably and intuitively from within their-->
-                            <!--web browser.</p>-->
-
-                            <!--<p>We have two example sites to show the enhancements that we have made. The first demo site-->
-                            <!--<a href="https://wheatis.tgac.ac.uk/davrods/browse/reads/">https://wheatis.tgac.ac.uk/davrods/browse/reads/</a>-->
-                            <!--is a website showcasing the anonymous access among with theming and read-only access to-->
-                            <!--the metadata. The <a href="https://grassroots.tools/davrods/">https://grassroots.tools/davrods/</a>-->
-                            <!--showcases the ability to add, edit and delete metadata attribute-value pairs for the-->
-                            <!--available data objects and collections and is available at .</p>-->
-
-                            <!--<h3 id="toc_5">References</h3>-->
-
-                            <!--<ol>-->
-                            <!--<li>Rajasekar, R., M. Wan, R. Moore, W. Schroeder, S.-Y. Chen, L. Gilbert, C.-Y. Hou, C.-->
-                            <!--Lee, R. Marciano, P. Tooby, A. de Torcy, B. Zhu, “iRODS Primer: Integrated-->
-                            <!--Rule-Oriented Data System”, Morgan &amp; Claypool, 2010.-->
-                            <!--</li>-->
-                            <!--<li>The Apache HTTP Server Project, <a href="http://httpd.apache.org/">http://httpd.apache.org/</a>,-->
-                            <!--accessed on 10 June 2017.-->
-                            <!--</li>-->
-                            <!--<li>Smeele, C., Smeele, T., Davrods - An Apache WebDAV interface to iRODS, <a-->
-                            <!--href="https://github.com/UtrechtUniversity/davrods">https://github.com/UtrechtUniversity/davrods</a>,-->
-                            <!--accessed on 10 June 2017.-->
-                            <!--</li>-->
-                            <!--<li>Apache Module mod_autoindex, <a-->
-                            <!--href="https://httpd.apache.org/docs/2.4/mod/mod_autoindex.html">https://httpd.apache.org/docs/2.4/mod/mod_autoindex.html</a>,-->
-                            <!--accessed on 10 June 2017.-->
-                            <!--</li>-->
-                            <!--</ol>-->
                         </div>
                     </div>
                 </div>
