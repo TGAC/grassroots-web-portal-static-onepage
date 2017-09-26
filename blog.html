@@ -78,8 +78,9 @@
 
         <p>iRODS comes with command-line clients to allow access to its storage and Chris Smeele and Ton Smeele
             developed an <a class="darker" href="http://httpd.apache.org/">Apache httpd</a> module, <a class="darker"
-                    href="https://github.com/UtrechtUniversity/davrods"
-                    title="Davrods - An Apache WebDAV interface to iRODS">Davrods</a> to allow access to it using
+                                                                                                       href="https://github.com/UtrechtUniversity/davrods"
+                                                                                                       title="Davrods - An Apache WebDAV interface to iRODS">Davrods</a>
+            to allow access to it using
             standard WebDAV commands. There were still some functionality that we wanted to add that was missing from
             Davrods, namely:</p>
 
@@ -88,7 +89,7 @@
             <li>Public access</li>
             <li>Metadata display</li>
         </ul>
-        <p><a class="darker" href="#blog1" data-toggle="modal">(Read more...)</a></p>
+        <p><a class="darker" href="#blog19092017" data-toggle="modal">(Read more...)</a></p>
         <!--</div>-->
     </div>
 </section>
@@ -523,6 +524,29 @@
 
 <!-- Custom scripts for this template -->
 <script src="js/freelancer.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (getUrlParameter('blog') != null) {
+            var modalid = getUrlParameter('blog');
+            $('#' + modalid).modal('show');
+        }
+    });
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+</script>
 
 </body>
 
