@@ -25,12 +25,15 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-21666189-16"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-21666189-16');
     </script>
-
 
 
 </head>
@@ -57,7 +60,7 @@
                     <a class="nav-link js-scroll-trigger" href="https://grassroots.tools/docs/api/">Docs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="https://grassroots.tools/data/">Data</a>
+                    <a class="nav-link js-scroll-trigger" href="#data">Data</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#about">About</a>
@@ -80,7 +83,8 @@
     <div class="container">
         <div class="intro-text" style="color: #2C3E50 ! important;">
             <span class="skills">The Grassroots Infrastructure project aims to create an easily-deployable suite of computing middleware tools to help users and developers gain access to scientific data infrastructure that can easily be interconnected.</span>
-            <p class="intro-text">With the data-generative approaches that are increasingly common in modern life science research, it is
+            <p class="intro-text">With the data-generative approaches that are increasingly common in modern life
+                science research, it is
                 vital
                 that the data and metadata produced by these efforts can be shared and reused. The Grassroots
                 Infrastructure
@@ -90,7 +94,8 @@
                 data, connect up any existing data services, and federate their instance of the Grassroots with others
                 out-of-the-box.</p>
 
-            <p class="intro-text">The Grassroots Infrastructure uses a controlled vocabulary of JSON messages to communicate, so any server
+            <p class="intro-text">The Grassroots Infrastructure uses a controlled vocabulary of JSON messages to
+                communicate, so any server
                 or
                 client that can understand JSON can be used to access and connect to the platform. We provide
                 infrastructure
@@ -101,22 +106,37 @@
 </header>
 
 <!-- Portfolio Grid Section -->
-<section id="services">
+<section class="success" id="services">
     <div class="container">
         <h2 class="text-center">Services</h2>
-        <hr class="star-primary">
-        <p  style="text-align: justify;">The Grassroots Infrastructure has been developed to expose a number of important and powerful technologies
+        <hr class="star-light">
+        <p style="text-align: justify;">The Grassroots Infrastructure has been developed to expose a number of important
+            and powerful technologies
             that can benefit
             researchers and developers to realise their data management needs.</p>
 
         <p>Existing services:</p>
 
         <ul>
-            <li><a href="https://wheatis.tgac.ac.uk/grassroots-portal/blast">Blast searches on HPC</a></li>
+            <li><a class="darker" href="https://wheatis.tgac.ac.uk/grassroots-portal/blast">Blast searches on HPC</a>
+            </li>
             <li>iRODS file management</li>
             <li>Solr / ElasticSearch indexers</li>
-            <li><a href="https://grassroots.tools/yellowrust-map/">Geo-location information</a></li>
+            <li><a class="darker" href="https://grassroots.tools/yellowrust-map/">Geo-location information</a></li>
         </ul>
+    </div>
+</section>
+
+<!-- Portfolio Grid Section -->
+<section id="data">
+    <div class="container">
+        <h2 class="text-center">Data</h2>
+        <hr class="star-primary">
+        <p style="text-align: justify;">As well as providing services, the Grassroots infrastructure also has the
+            ability to host data. Building upon <a href="https://irods.org/" target="_blank">iRODS</a> as a data management solution, we have added a number of features
+            such as a search service and a fully featured web interface, using <a href="https://github.com/billyfish/eirods-dav">mod_eirods_dav</a>, for accessing the data
+            and metadata. Currently it is used to host the <a href="https://opendata.earlham.ac.uk">Designing Future Wheat Data Portal</a>.</p>
+
     </div>
 </section>
 
@@ -126,7 +146,8 @@
         <h2 class="text-center">About</h2>
         <hr class="star-light">
         <h3>Designing Future Wheat:</h3>
-        <p style="text-align: justify;">Grassroots has traditionally been the result of an effort to produce an interoperable data sharing platform
+        <p style="text-align: justify;">Grassroots has traditionally been the result of an effort to produce an
+            interoperable data sharing platform
             for the wheat community. Whilst Grassroots is by no means organism-specific, our main use cases come from
             the wheat community. We get most of our community feedback from plant researchers at the EI, JIC, Bristol
             University, and other UK institutions, as well as from various international wheat working groups such as
@@ -145,7 +166,8 @@
             experimental information arising from DFW.</p>
 
         <h3>How to cite us:</h3>
-        <p style="text-align: justify;">If you have used any of the services that Grassroots provides in your own research, we would very much
+        <p style="text-align: justify;">If you have used any of the services that Grassroots provides in your own
+            research, we would very much
             appreciate that you let us know and cite us in any publications, as follows:</p>
 
         <p>Bian. X, Tyrrell. S, Davey R.P. <i>The Grassroots life science data infrastructure (2017).</i>
@@ -229,7 +251,8 @@
                 <div class="footer-col col-md-4" style="text-align: left ! important;">
                     <h3>Funding</h3>
                     <p>The Grassroots project is strategically funded through the BBSRC Designing Future Wheat programme
-                        grant, BB/P016855/1, and aims to develop a lightweight reusable set of open source software tools
+                        grant, BB/P016855/1, and aims to develop a lightweight reusable set of open source software
+                        tools
                         to allow researchers to share and federate life science datasets.</p>
                 </div>
             </div>
