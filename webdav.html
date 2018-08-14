@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Accessing the Earlham Institute data repository using WebDAV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="/eirods_dav_files/scripts/jquery-3.3.1.js"></script>
+    <script src="/eirods_dav_files/scripts/eirods-dav.js"></script>
+
+    <script src="/eirods_dav_files/scripts/bootstrap-4.1.0/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="/opendata_files/styles/styles.css"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-21666189-16"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-21666189-16');
+    </script>
+    <style type="text/css">
+        img.screenshot {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50% !important;
+            padding: 15px 0px;
+            align: center;
+        }
+
+        h3 {
+            padding-top: 30px;
+        }
+    </style>
+
+    <!-- grassroots 4 -->
+<body>
+
+<!-- Warning: Do not parse this directory listing programmatically,
+              the format may change without notice!
+              If you want to script access to these WebDAV collections,
+              you can use the eirods-dav REST API or use the PROPFIND method instead. -->
+
+<header>
+    <script src="https://grassroots.tools/js/site.js"></script>
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top" style="text-transform: none ! important;">Grassroots
+                Data Repository</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;"
+                     src="https://grassroots.tools/img/logo-white.png" alt="The Earlham Institute logo"/>
+            </div>
+        </div>
+    </nav>
+
+
+</header>
+<section id="services" style="padding: 100px 0px 100px 0px ! important;">
+    <div class="container">
+
+        <h1>Mounting the DFW portal as WebDAV resource</h1>
+
+        <p id="server">
+            Part of the functionality of the DFW portal is that it can use the <a
+                href="https://en.wikipedia.org/wiki/WebDAV">
+            WebDAV</a> protocol to allow it to be mounted as a read-only drive on your computer. Support for this may be
+            available directly
+            from your computer's operating system or you can use a third-party tool such as <a
+                href="https://cyberduck.io/">
+            Cyberduck</a>.
+        </p>
+
+        <p>
+            The required configuration details for this are:
+        </p>
+
+        <ul>
+            <li><strong>Server</strong>: opendata.earlham.ac.uk</li>
+            <li><strong>Port</strong>: 443</li>
+            <li><strong>Type</strong>: Secure WebDAV (HTTPS)</li>
+            <li><strong>Folder</strong>: /wheat</li>
+            <li><strong>Username</strong>: public_user</li>
+            <li><strong>Password</strong>: anonymous</li>
+        </ul>
+        <p>There are a variety of ways to do this depending upon your operating system or tool and there are some guides
+            below. </p>
+
+        <p><a href="#linux">Linux</a> | <a href="#windows">Windows</a> | <a href="#mac">Mac</a></p>
+
+        <h3 id="linux">Linux</h3>
+        <p>Open your file manager and go to the <strong>"File - Connect to Server..."</strong> menu option as shown in
+            the picture
+            below.</p>
+        <img class="screenshot" src="images/linux1.png"/>
+        <p>You will then be shown a window where you can enter the server details for the DFW Data Portal as described
+            <a href="#server">above</a> giving you a window similar to the one below.</p>
+        <img class="screenshot" src="images/linux2.png"/>
+
+
+        <h3 id="windows">Windows</h3>
+        <p>1. From the File Manager, right-click on the Network item in the left-hand pane.</p>
+        <img class="screenshot" src="images/win1.png"/>
+        <p>2. This will open a window called <strong>"Map Network Drive"</strong> and a link called <strong>"Connect to
+            a Web site that you can use to store your documents and pictures"</strong></p>
+        <img class="screenshot" src="images/win2.png"/>
+        <p>3. This will open the <strong>"Add Network Location"</strong> wizard and you should click on the
+            <strong>Next</strong> button and then <strong>"Choose a custom network location"</strong> and click <strong>Next</strong>
+            again.</p>
+        <p>4. In the <strong>"Internet or network address:"</strong> text box, enter <strong>"https://opendata.earlham.ac.uk/wheat"</strong>
+            and click <strong>Next</strong>.</p>
+        <img class="screenshot" src="images/win3.png"/>
+        <p>5. You can name the network location to anything you like such as "DFW Data Portal" and click
+            <strong>Next</strong> and then <strong>Finish</strong>.</p>
+
+
+        <h3 id="mac">Mac</h3>
+        <p>1. In the Finder app, click the menu option <strong>"Go"</strong> then <strong>"Connect to Server"</strong>
+        </p>
+        <img class="screenshot" src="images/mac1.png"/>
+        <p>2. Then in the Server Address, enter <strong>https://opendata.earlham.ac.uk/wheat</strong> when prompted
+            enter username: <strong>public_user</strong>, password: <strong>anonymous</strong></p>
+        <img class="screenshot" src="images/mac2.png"/>
+        <p>3. Browse:</p>
+        <img class="screenshot" src="images/mac3.png"/>
+
+    </div>
+</section>
+
+
+<footer class="text-center">
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    Copyright (c) 2016-18, Earlham Institute and Utrecht University.<br>
+                    Images taken from the <a href="http://www.masonicons.de">Amiga Image Storage System</a> by Martin
+                    Merz.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
+
+
