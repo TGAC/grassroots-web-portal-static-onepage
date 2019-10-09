@@ -604,3 +604,12 @@ a.darker, a.darker:active, a.darker:focus, a.darker:hover{
     color: white;
     /*color:  #00695C;*/
 }
+
+table.resources{
+    width: 100%;
+}
+
+table.resources td{
+    test-align: center;
+    vertical-align: center;
+}
