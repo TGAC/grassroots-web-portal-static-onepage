@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Grassroots Infrastructure</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/site.css" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-21666189-16"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-21666189-16');
+    </script>
+
+<style>
+     /* Tabs styling */
+     .tabs {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center; /* Center tabs if they don't fill the entire width */
+        flex-wrap: wrap;
+        border-bottom: 2px solid #2C3E50; /* Visual separation */
+    }
+
+    .tabs li {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 10px 15px;
+        background-color: #2C3E50;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px 5px 0 0; /* Rounded corners on the top */
+        transition: background-color 0.3s ease; /* Interaction effect */
+    }
+
+    .tabs li.active, .tabs li:hover {
+        background-color: #1D2E40; /* Darker on hover/active */
+    }
+
+    .tabs li a {
+        color: inherit; /* Ensures anchor tags inherit the li color */
+        text-decoration: none; /* No underline */
+    }
+
+    /* Tab content styling */
+    .tab-content div {
+        display: none; /* Initially hide all content */
+        padding: 20px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9; /* Light background for readability */
+        margin-top: -1px; /* Align with tabs */
+    }
+
+    .tab-content div p {
+        color: #2C3E50; /* Text color */
+    }
+
+    .tab-content div.active {
+        display: block; /* Show active tab content */
+    }
+
+    /* Adjustments for smaller screens */
+    @media (max-width: 600px) {
+        .tabs {
+            flex-direction: column; /* Stack tabs vertically on small screens */
+        }
+    }
+
+    /* Section and explanatory text styling */
+    #header-section .explanatory-text h2, #header-section .explanatory-text p {
+        color: #2C3E50; /* Unified color for header section text */
+        margin-bottom: 20px; /* Space below the text */
+    }
+
+    
+
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+#header-section .explanatory-text h2 {
+            font-size: 28px; 
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        #header-section .explanatory-text p {
+            font-size: 20px; 
+            color: #2C3E50;
+            margin-bottom: 30px;
+        }
+
+        .darker {
+    font-size: 18px; /* size of hyperlink text */
+ }
+ 
+ #search-results {
+        width: 95%; /* Adjust this value as needed */
+        max-width: 1600px; /* Optional: sets a maximum width */
+        margin: 0 auto; /* Centers the box */
+    }
+    #resultsTabs, #tabContent {
+        width: 100%; /* Ensures they take the full width of #search-results */
+    }
+    #loadingSpinner {
+    display: none; /* Initially hidden */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: fixed; /* Or absolute, depending on the use case */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); /* Optional: slight white overlay */
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+</style>
+
+</head>
+<body id="page-top">
+   
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"
+                style="text-transform: none ! important;">Grassroots
+                Infrastructure</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#data">Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://grassroots.tools/docs/">Docs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://grassroots.tools/dfw">DFW</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://grassroots.tools/service/search">Search</a>
+                    </li>
+                </ul>
+                <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;" src="img/logo-white.png" />
+            </div>
+        </div>
+    </nav>
+    <!-- Search box -->
+    <section id="search-box" style="padding-top: 130px;  padding-bottom: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="search-box" style="border: 2px solid #2C3E50; padding: 20px; border-radius: 5px; background-color: rgba(255, 255, 255, 0.9); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="search-box-title" style="text-align: left; margin-bottom: 15px;">
+                            <h4 style="margin: 0; color: #2C3E50;">Grassroots Search</h4>
+                            <p style="margin: 0; color: #2C3E50; font-size: 14px;">Explore our system</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Enter search keyword...">
+                            </div>
+                            <div class="col-sm-4">
+                                <select id="categorySelect" class="form-control">
+                                    <option value="All">All</option>
+                                    <option value="Dataset">Dataset</option>
+                                    <!-- Add other categories as needed -->
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="sendNewSearchRequest()" class="btn btn-primary" style="margin-top: 10px;">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    
+<!-- Search results Section -->
+<section class="success" id="services">
+    <div class="container">
+        <section id="results" style="padding-top: 5px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 mx-auto text-center">
+                        <div id="search-results">                                                        
+                            <div id="resultsTabs" class="tabs"></div>
+                            <div id="tabContent" class="tab-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="loadingSpinner" style="display: none;">
+            <div class="spinner"></div>
+        </div>
+    </div>
+</header>
+
+<script>
+
+function displayResults(data) {
+    const tabsContainer = document.getElementById('resultsTabs');
+    const contentContainer = document.getElementById('tabContent');
+
+    // Clear previous tabs and content
+    tabsContainer.innerHTML = '';
+    contentContainer.innerHTML = '';
+
+    if (data.results && data.results[0].metadata.total_hits > 0) {
+        const categoriesResults = {}; // Holds the results categorized by their type
+
+        // Group results by their category
+        data.results[0].results.forEach(result => {
+            const category = result.data.type_description || 'Other';
+            if (!categoriesResults[category]) {
+                categoriesResults[category] = [];
+            }
+            categoriesResults[category].push(result);
+        });
+
+        // Create tabs and contents for categories with results
+        Object.keys(categoriesResults).forEach((category, index) => {
+            const tab = document.createElement('li');
+            const link = document.createElement('a');
+            link.textContent = category;
+            link.href = `#tab-${index}`;
+            tab.appendChild(link);
+            tabsContainer.appendChild(tab);
+
+            const tabContent = document.createElement('div');
+            tabContent.id = `tab-${index}`;
+            categoriesResults[category].forEach(result => {
+                const item = document.createElement('p');
+                item.innerHTML = result.title;
+                tabContent.appendChild(item);
+            });
+            contentContainer.appendChild(tabContent);
+
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.tab-content div').forEach(div => div.style.display = 'none');
+                document.querySelectorAll('.tabs li a').forEach(a => a.classList.remove('active'));
+                tabContent.style.display = 'block';
+                link.classList.add('active');
+            });
+
+            // Automatically activate the first tab
+            if (index === 0) {
+                link.classList.add('active');
+                tabContent.style.display = 'block';
+            }
+        });
+    } else {
+        contentContainer.innerHTML = '<p>No results found.</p>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const params = new URLSearchParams(window.location.search);
+    const keyword = params.get('keyword');
+    const category = params.get('category');
+
+    // Initialize the search fields with current search parameters, if any
+    document.getElementById('searchInput').value = keyword || '';
+    document.getElementById('categorySelect').value = category || 'All';
+
+    sendSearchRequest(keyword, category); // Call search on page load with current parameters
+});
+
+function sendSearchRequest(keyword, category) {
+    // Show the spinner
+    document.getElementById('loadingSpinner').style.display = 'block';
+
+    const categoryValue = category === "All" ? "<ANY>" : category;
+
+    var searchRequest = {
+        "services": [{
+            "start_service": true,
+            "so:alternateName": "search",
+            "parameter_set": {
+                "level": "simple",
+                "parameters": [
+                    { "param": "SS Keyword Search", "current_value": keyword },
+                    { "param": "SS Facet", "current_value": categoryValue },
+                    { "param": "SS Results Page Number", "current_value": 0 },
+                    { "param": "SS Results Page Size", "current_value": 500 }
+                ]
+            }
+        }]
+    };
+
+    //fetch('http://127.0.0.1:2000/grassroots/public_backend', {
+    fetch('https://grassroots.tools/beta/grassroots/public_backend', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(searchRequest),
+    })
+    .then(response => response.json())
+    .then(data => {
+        displayResults(data);
+         // Hide the spinner
+         document.getElementById('loadingSpinner').style.display = 'none';
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        displayError(); // Function to display error message
+    });
+}
+
+function sendNewSearchRequest() {
+    var keyword = document.getElementById('searchInput').value;
+    var category = document.getElementById('categorySelect').value;
+    sendSearchRequest(keyword, category); // Reuse the search request function for new searches
+}
+
+function displayError() {
+    document.getElementById('search-results').innerHTML = `<p>There was an error processing your search. Please try again.</p>`;
+}
+</script>
+
+
+    
+
+
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-md-4" style="text-align: left ! important;">
+                        <h3>Earlham Institute</h3>
+                        <p>Norwich Research Park<br />
+                            Norwich<br />
+                            NR4 7UZ<br />
+                            UK</p>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>Project Code</h3>
+                        <p>The project is fully open source and the source code is available on <a
+                                href="https://github.com/TGAC?q=grassroots" target="_blank">GitHub</a>:</p>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a class="btn-social btn-outline" href="https://github.com/TGAC?q=grassroots"
+                                    target="_blank">
+                                    <i class="fa fa-fw fa-github"></i>
+                                </a>
+                            </li>
+                            <!--<li class="list-inline-item">-->
+                            <!--<a class="btn-social btn-outline" href="#">-->
+                            <!--<i class="fa fa-fw fa-twitter"></i>-->
+                            <!--</a>-->
+                            <!--</li>-->
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-4" style="text-align: left ! important;">
+                        <h3>Funding</h3>
+                        <p>The Grassroots project is strategically funded through the BBSRC Designing Future Wheat
+                            programme
+                            grant, BB/P016855/1, and aims to develop a lightweight reusable set of open source software
+                            tools
+                            to allow researchers to share and federate life science datasets.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        &copy; 2017 - 2019 Brought to you by <a href="http://www.earlham.ac.uk/" target="_blank">Earlham
+                            Institute</a>, powered by <a href="http://cyverseuk.org" target="_blank">CyVerse UK</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top d-lg-none">
+        <a class="btn btn-primary js-scroll-trigger" href="#page-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>
+
+    <div class="portfolio-modal modal fade" id="rob" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="modal-body">
+                                <h2>Robert Davey</h2>
+                                <hr class="star-primary">
+                                <img class="img-fluid img-centered" src="img/rob-davey-web.jpg" alt="">
+                                <p>Earlham Institute</p>
+                                <p style="text-align: left ! important;">Rob leads the <a
+                                        href="http://www.earlham.ac.uk/davey-group">Data Infrastructure
+                                        group</a> at the Earlham Institute and is the PI for the
+                                    Grassroots project. He has a PhD in Computer Science from the University of East
+                                    Anglia,
+                                    undertaken at the Roberts lab in the <a href="http://www.ncyc.co.uk"
+                                        target="_blank">National
+                                        Collection
+                                        of Yeast Cultures</a>. Rob leads a
+                                    number of large computing infrastructure development and deployment projects, is a
+                                    certified <a href="https://software-carpentry.org" target="_blank">Software
+                                        Carpentry</a> Instructor and
+                                    Trainer, an editorial board member for
+                                    Nature Scientific Data, and a <a href="https://www.software.ac.uk">Software
+                                        Sustainability Institute</a> Fellow.</p>
+                                <a href="https://orcid.org/0000-0002-5589-7754" target="orcid.widget"
+                                    rel="noopener noreferrer" style="vertical-align:top;"><img
+                                        src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+                                        style="width:1em;margin-right:.5em;"
+                                        alt="ORCID iD icon">orcid.org/0000-0002-5589-7754</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="portfolio-modal modal fade" id="xingdong" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="modal-body">
+                                <h2>Xingdong Bian</h2>
+                                <hr class="star-primary">
+                                <img class="img-fluid img-centered" src="img/xingdong-bian-web.jpg" alt="">
+                                <p>Research Software Engineer, Earlham Institute</p>
+                                <p style="text-align: left ! important;">Xingdong is a member of the Data Infrastructure
+                                    group, he joined the Earlham Institute in
+                                    January 2010 and was involved in the development of EI's Laboratory Information
+                                    Management System (MISO) and the TGAC Browser. He has worked on solutions for data
+                                    visualisation, managing servers, genomic databases and bioinformatics tools.
+                                    Xingdong is
+                                    now working mainly on the Grassroots project as a research software engineer. He has
+                                    a
+                                    BSc in Computer Science from the University of Sheffield and a MSc in Software
+                                    Engineering from the University of York.</p>
+                                <a href="https://orcid.org/0000-0002-4719-3220" target="orcid.widget"
+                                    rel="noopener noreferrer" style="vertical-align:top;"><img
+                                        src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+                                        style="width:1em;margin-right:.5em;"
+                                        alt="ORCID iD icon">orcid.org/0000-0002-4719-3220</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="portfolio-modal modal fade" id="simon" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="modal-body">
+                                <h2>Simon Tyrrell</h2>
+                                <hr class="star-primary">
+                                <img class="img-fluid img-centered" src="img/simon-tyrrell-web.jpg" alt="">
+                                <p>Research Software Engineer, Earlham Institute</p>
+                                <p style="text-align: left ! important;">Simon is a research software engineer and a
+                                    member
+                                    of the Data Infrastructure group,
+                                    joining the Earlham Institute in June 2014. He has a PhD in Cheminformatics from the
+                                    University of Sheffield. He has worked on a variety of molecular modelling, data
+                                    mining
+                                    and visualisation projects in different scientific disciplines.
+                                </p>
+                                <a href="https://orcid.org/0000-0002-7789-6875" target="orcid.widget"
+                                    rel="noopener noreferrer" style="vertical-align:top;"><img
+                                        src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+                                        style="width:1em;margin-right:.5em;"
+                                        alt="ORCID iD icon">orcid.org/0000-0002-7789-6875</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="portfolio-modal modal fade" id="daniel" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl"></div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="modal-body">
+                                <h2>Daniel Olvera</h2>
+                                <hr class="star-primary">
+                                <img class="img-fluid img-centered" src="img/daniel-olvera-web-profile.jpg" .jpg"
+                                    alt="">
+                                <p>Research Software Engineer, Earlham Institute</p>
+                                <p style="text-align: left ! important;">Daniel is a research software engineer and a
+                                    member
+                                    of the Data Infrastructure group,
+                                    joining the Earlham Institute in 2022. He obtained his PhD from the School of
+                                    Mathematics at the University of Bristol, working on turbulence and optimization
+                                    techniques.
+                                    He continued working in fluid mechanics at Coventry University and
+                                    later moved to Barcelona as a postdoctoral researcher working at the
+                                    Catalan Institute of Nanoscience and Nanotechnology. He is interested in
+                                    code development, numerical simulations, optimisation, high performance computing
+                                    and data visualisation.
+                                </p>
+                                <a href="https://orcid.org/0000-0002-7935-9715" target="orcid.widget"
+                                    rel="noopener noreferrer" style="vertical-align:top;"><img
+                                        src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
+                                        style="width:1em;margin-right:.5em;"
+                                        alt="ORCID iD icon">orcid.org/0000-0002-7935-9715</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/site.js"></script>
+
+</body>
+
+</html>
