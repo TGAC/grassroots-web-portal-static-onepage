@@ -94,8 +94,6 @@
         margin-bottom: 20px; /* Space below the text */
     }
 
-    
-
 
 .close-button {
   color: #aaa;
@@ -136,7 +134,7 @@
 
 
  #search-results {
-        width: 95%; /* Adjust this value as needed */
+        width: 100%; /* Adjust this value as needed */
         max-width: 1600px; /* Optional: sets a maximum width */
         margin: 0 auto; /* Centers the box */
     }
@@ -300,7 +298,24 @@ function displayResults(data) {
             tabContent.id = `tab-${index}`;
             categoriesResults[category].forEach(result => {
                 const item = document.createElement('p');
-                item.innerHTML = result.title;
+                
+                
+                // Check if the category is 'Dataset' and customize the display
+                if (category === "Dataset") {
+                    const titleLink = `<a href="${result.data['so:url']}" target="_blank">${result.data['so:name']}</a>`;
+                    const authors = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
+                    item.innerHTML = `${titleLink} by ${authors}`;
+                }
+                else if (category === "Study") {
+                    const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
+                    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+                    item.innerHTML = titleLink;
+                }
+                else {
+                    item.innerHTML = result.title; // Default display for other categories
+                }
+
+
                 tabContent.appendChild(item);
             });
             contentContainer.appendChild(tabContent);
