@@ -172,6 +172,10 @@
     }
 }
 
+programme-description {
+    font-size: 0.9em; /* Adjust as needed */
+    color: #333; /* Ensure contrast with the background */
+}
 
 </style>
 
@@ -230,7 +234,13 @@
                                 <select id="categorySelect" class="form-control">
                                     <option value="All">All</option>
                                     <option value="Dataset">Dataset</option>
-                                    <!-- Add other categories as needed -->
+                                    <option value="Service">Service</option>
+                                    <option value="Field Trial">Field Trial</option>
+                                    <option value="Study">Study</option>
+                                    <option value="Location">Location</option>
+                                    <option value="MARTi Sample">MARTi Sample</option>
+                                    <option value="Programme">Programme</option>
+                                    <option value="Publication">Publication</option>                                    
                                 </select>
                             </div>
                         </div>
@@ -311,6 +321,91 @@ function displayResults(data) {
                     const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
                     item.innerHTML = titleLink;
                 }
+                else if (category === "Field Trial") {
+                    const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
+                    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+                    item.innerHTML = titleLink;
+                }
+                else if (category === "Programme") {
+                    let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
+                    let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
+    
+                    item.innerHTML = titleLink;
+
+                    if (principalInvestigator) {
+                    item.innerHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
+                    }
+
+                    item.innerHTML += result.data['so:description'] ? result.data['so:description'] : '';
+                }
+                else if (category === "Publication") {
+                    let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author'; // Directly use the 'author' string
+
+                    let authors = authorsText.replace(/;/g, ','); // Replace semicolons with commas
+
+                    let title = result.data['so:name']; 
+                    let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+
+                    // Initialize content HTML string for the publication item
+                    let contentHTML = '';
+
+                    // Check if a URL is provided, append title as a hyperlink or in italics
+                    if (publicationLink) {
+                        contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
+                    } else {
+                        contentHTML += `<i>${title}</i><br/>`;
+                    }
+                    // Append authors in italics
+                    contentHTML += `<i>${authors}</i><br/>`;
+                    // Append description
+                    contentHTML += `${description}<br/>`;
+                    // Set the innerHTML of the item element
+                    item.innerHTML = contentHTML;
+                }
+                else if (category === "MARTi Sample") {
+                    let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let title = result.data['so:name']; // Assuming this holds the sample title
+                    let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                    let siteName = result.data['site_name'] ? result.data['site_name'] : '';
+        
+                    // Initialize content HTML string for the MARTi Sample item
+                    let contentHTML = '';
+
+                    // Append title as a hyperlink
+                    if (sampleLink) {
+                    contentHTML += `<a style="color:#18bc9c !important;" href="${sampleLink}" target="_blank">${title}</a><br/>`;
+                    }
+    
+                    contentHTML += `<i>${description}</i><br/>`;
+                    // Append site name if available
+                    if (siteName) {
+                        contentHTML += `Site: ${siteName}`;
+                    }
+                    item.innerHTML = contentHTML;
+                }
+                else if (category === "Service") {
+                let title = result.data['service'] ? result.data['service'] : 'No Title Available'; // Assuming 'service' holds the title
+                let serviceName = result.data['so:name'] ? result.data['so:name'] : '';
+                let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                let payloadUri = result.data['payload'] ? encodeURIComponent(JSON.stringify(result.data['payload'])) : '';
+                let serviceLink = `${root_dir}service/payload/${payloadUri}`; // Construct the link using payloadUri
+                let contentHTML = '';
+
+                // Append title as a hyperlink
+                if (payloadUri) {
+                    contentHTML += `<a style="color:#18bc9c !important;" class="newstyle_link" href="${serviceLink}" target="_blank">${title}</a><br/>`;
+                }
+                contentHTML += `<b>${serviceName}</b><br/>`;
+                contentHTML += `${description}<br/>`;
+                item.innerHTML = contentHTML;
+                }
+
+
+
+
+
                 else {
                     item.innerHTML = result.title; // Default display for other categories
                 }
@@ -373,8 +468,8 @@ function sendSearchRequest(keyword, category) {
         }]
     };
 
-    //fetch('http://127.0.0.1:2000/grassroots/public_backend', {
-    fetch('https://grassroots.tools/beta/grassroots/public_backend', {
+    fetch('http://127.0.0.1:2000/grassroots/public_backend', {
+    //fetch('https://grassroots.tools/beta/grassroots/public_backend', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
