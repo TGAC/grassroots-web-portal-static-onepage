@@ -390,7 +390,8 @@ function displayResults(data) {
                 let serviceName = result.data['so:name'] ? result.data['so:name'] : '';
                 let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
                 let payloadUri = result.data['payload'] ? encodeURIComponent(JSON.stringify(result.data['payload'])) : '';
-                let serviceLink = `${root_dir}service/payload/${payloadUri}`; // Construct the link using payloadUri
+                let serviceLink = `https://grassroots.tools/service/payload/${payloadUri}`; // Construct the link using payloadUri        
+        
                 let contentHTML = '';
 
                 // Append title as a hyperlink
