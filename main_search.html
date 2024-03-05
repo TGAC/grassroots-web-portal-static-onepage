@@ -202,17 +202,21 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
 
 
 <script>
-     function sendSearchRequest() {
-        var keyword = document.getElementById('searchInput').value;
+    function sendSearchRequest() {
+        var keyword = document.getElementById('searchInput').value.trim(); // Trim to remove any leading/trailing white spaces
         var category = document.getElementById('categorySelect').value;
 
-        // Construct the URL for results.html with query parameters for keyword and category
-        var resultsUrl = `results.html?keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(category)}`;
+        if (keyword === "") {
+            // Display an alert or message on the page that a search term is required.
+            alert("Please enter a search term.");
+        } else {
+            // Construct the URL for results.html with query parameters for keyword and category
+            var resultsUrl = `results.html?keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(category)}`;
 
-        // Redirect the browser to the results page
-        window.location.href = resultsUrl;
+            // Redirect the browser to the results page
+            window.location.href = resultsUrl;
+        }
     }
-
 </script>
 
     

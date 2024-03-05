@@ -263,7 +263,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 mx-auto text-center">
-                        <div id="search-results">                                                        
+                        <div id="search-results">
+                            <div id="search-message"></div>                                                        
                             <div id="resultsTabs" class="tabs"></div>
                             <div id="tabContent" class="tab-content"></div>
                         </div>
@@ -549,9 +550,22 @@ function sendSearchRequest(keyword, category) {
 }
 
 function sendNewSearchRequest() {
-    var keyword = document.getElementById('searchInput').value;
+    var keyword = document.getElementById('searchInput').value.trim();
     var category = document.getElementById('categorySelect').value;
-    sendSearchRequest(keyword, category); // Reuse the search request function for new searches
+    var messageElement = document.getElementById('search-message'); // Get the dedicated message element
+
+    // Clear any previous message
+    messageElement.innerHTML = '';
+
+    if (!keyword) {
+        // If keyword is empty, display a message in the dedicated message element and do not proceed with the search
+        messageElement.innerHTML = `<p>Please enter a search term.</p>`;
+        // Optionally, you might want to focus the search input field to prompt the user to type
+        document.getElementById('searchInput').focus();
+    } else {
+        // If there is a keyword, proceed with the search request
+        sendSearchRequest(keyword, category);
+    }
 }
 
 function displayError() {
