@@ -71,10 +71,12 @@
         border: 1px solid #ddd;
         background-color: #f9f9f9; /* Light background for readability */
         margin-top: -1px; /* Align with tabs */
+        text-align: left;
     }
 
     .tab-content div p {
         color: #2C3E50; /* Text color */
+        text-align: left; 
     }
 
     .tab-content div.active {
@@ -172,9 +174,10 @@
     }
 }
 
-programme-description {
-    font-size: 0.9em; /* Adjust as needed */
-    color: #333; /* Ensure contrast with the background */
+.publication-item {
+    padding-bottom: 10px; /* Add some space at the bottom */
+    margin-bottom: 10px; /* Add additional space below the border */
+    border-bottom: 1px solid #ccc; /* Thin, faint grey line */
 }
 
 </style>
@@ -253,6 +256,7 @@ programme-description {
     </section>
     
 <!-- Search results Section -->
+<header class="text-center" id="header-section">
 <section class="success" id="services">
     <div class="container">
         <section id="results" style="padding-top: 5px;">
@@ -276,6 +280,9 @@ programme-description {
 <script>
 
 function displayResults(data) {
+    window.publicationItemCount = 0;
+    window.DatasetItemCount = 0;
+    window.ProgrammeItemCount = 0;
     const tabsContainer = document.getElementById('resultsTabs');
     const contentContainer = document.getElementById('tabContent');
 
@@ -312,9 +319,24 @@ function displayResults(data) {
                 
                 // Check if the category is 'Dataset' and customize the display
                 if (category === "Dataset") {
-                    const titleLink = `<a href="${result.data['so:url']}" target="_blank">${result.data['so:name']}</a>`;
-                    const authors = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
-                    item.innerHTML = `${titleLink} by ${authors}`;
+                // Initialize content HTML string for the dataset item
+                let contentHTML = '';
+                // Append a horizontal rule before each dataset item except the first one
+                if (!window.DatasetItemCount) {
+                    window.DatasetItemCount = 1; // Initialize if it doesn't exist
+                } else {
+                // Append a horizontal rule for subsequent items
+                    contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                    window.DatasetItemCount++; // Increment for each item processed
+                }
+                const titleLink = `<a href="${result.data['so:url']}" target="_blank">${result.data['so:name']}</a>`;
+                const authorsList = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
+                const description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+
+                // Append the dataset-specific content with authors on a new line in Italics and the description on another line
+                contentHTML += `${titleLink}<br/>${authorsList}<br/>${description}`;
+                // Set the item's innerHTML
+                item.innerHTML = contentHTML;
                 }
                 else if (category === "Study") {
                     const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
@@ -327,17 +349,29 @@ function displayResults(data) {
                     item.innerHTML = titleLink;
                 }
                 else if (category === "Programme") {
-                    let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
-                    let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
-                    let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
-    
-                    item.innerHTML = titleLink;
+                // Initialize content HTML string for the programme item
+                let contentHTML = '';
+                // Append a horizontal rule before each programme item except the first one
+                if (!window.ProgrammeItemCount) {
+                    window.ProgrammeItemCount = 1; // Initialize if it doesn't exist
+                } else {
+                    // Append a horizontal rule for subsequent items
+                    contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                    window.ProgrammeItemCount++; // Increment for each item processed
+                }
 
-                    if (principalInvestigator) {
-                    item.innerHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
-                    }
+                let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
+                let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
+                let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
+                // Append the rest of the programme-specific content
+                contentHTML += titleLink;
+                if (principalInvestigator) {
+                    contentHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
+                }
 
-                    item.innerHTML += result.data['so:description'] ? result.data['so:description'] : '';
+                contentHTML += result.data['so:description'] ? result.data['so:description'] : '';
+                // Set the item's innerHTML
+                item.innerHTML = contentHTML;
                 }
                 else if (category === "Publication") {
                     let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
@@ -350,8 +384,20 @@ function displayResults(data) {
 
                     // Initialize content HTML string for the publication item
                     let contentHTML = '';
+                    //let contentHTML = '<div class="publication-item">'; // it does not work!
+                    
+                    
+                    // Append a horizontal rule before each publication item except the first one
+                    // Use a static variable to keep track of the item count                    
+                    if (!window.publicationItemCount) {
+                    window.publicationItemCount = 1; // Initialize if it doesn't exist
+                    } else {
+                    // Append a horizontal rule for subsequent items
+                    contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                    window.publicationItemCount++; // Increment for each item processed
+                    }    
 
-                    // Check if a URL is provided, append title as a hyperlink or in italics
+                    
                     if (publicationLink) {
                         contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
                     } else {
@@ -361,7 +407,8 @@ function displayResults(data) {
                     contentHTML += `<i>${authors}</i><br/>`;
                     // Append description
                     contentHTML += `${description}<br/>`;
-                    // Set the innerHTML of the item element
+                    
+                    //contentHTML += '</div>'; // End publication item div    
                     item.innerHTML = contentHTML;
                 }
                 else if (category === "MARTi Sample") {
@@ -402,9 +449,6 @@ function displayResults(data) {
                 contentHTML += `${description}<br/>`;
                 item.innerHTML = contentHTML;
                 }
-
-
-
 
 
                 else {
@@ -452,6 +496,7 @@ function sendSearchRequest(keyword, category) {
     document.getElementById('loadingSpinner').style.display = 'block';
 
     const categoryValue = category === "All" ? "<ANY>" : category;
+    let hasTimedOut = false; 
 
     var searchRequest = {
         "services": [{
@@ -469,6 +514,15 @@ function sendSearchRequest(keyword, category) {
         }]
     };
 
+    // Set a timeout limit for the search (e.g., 10 seconds)
+    const searchTimeout = setTimeout(() => {
+        hasTimedOut = true; // Indicate that the request has timed out
+        document.getElementById('loadingSpinner').style.display = 'none';
+        // Inform the user that the search took too long
+        document.getElementById('search-results').innerHTML = `<p>Search timed out. Please try again.</p>`;
+    }, 8000); // 10000 milliseconds = 10 seconds
+
+
     //fetch('http://127.0.0.1:2000/grassroots/public_backend', {
     fetch('https://grassroots.tools/beta/grassroots/public_backend', {
         method: 'POST',
@@ -479,13 +533,18 @@ function sendSearchRequest(keyword, category) {
     })
     .then(response => response.json())
     .then(data => {
-        displayResults(data);
-         // Hide the spinner
-         document.getElementById('loadingSpinner').style.display = 'none';
+        clearTimeout(searchTimeout); // Cancel the timeout if the search completes in time
+        if (!hasTimedOut) { // Proceed only if there hasn't been a timeout
+            displayResults(data);
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
     })
     .catch((error) => {
-        console.error('Error:', error);
-        displayError(); // Function to display error message
+        clearTimeout(searchTimeout); // Ensure to clear the timeout 
+        if (!hasTimedOut) { // Show error only if there hasn't been a timeout
+            console.error('Error:', error);
+            displayError(); // Function to display an error message
+        }
     });
 }
 
