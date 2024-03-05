@@ -450,6 +450,17 @@ function displayResults(data) {
                 contentHTML += `${description}<br/>`;
                 item.innerHTML = contentHTML;
                 }
+                else if (category === "Measured Variable") {
+                    const title = result.data['so:name'];
+                    const unitName = result.data.unit['so:name'];
+                    const traitDescription = result.data.trait['so:description'];
+
+                    let contentHTML = `<strong>${title}</strong><br>`;
+                    contentHTML += `Trait ontology name: ${unitName}<br>`;
+                    contentHTML += `${traitDescription}`;
+
+                    item.innerHTML = contentHTML;
+                }
 
 
                 else {
