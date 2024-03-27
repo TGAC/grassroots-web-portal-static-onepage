@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Grassroots</title>
+    
+    <!-- Core theme CSS freelancer (includes Bootstrap)-->
+    <link href="/static/fieldtrial/css/styles.css" rel="stylesheet"> 
+    <!-- font awesome -->
+    <link href="/static/fieldtrial/SCRIPTS/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet" type="text/css"/>
+    <!-- jQuery -->
+    <script type="text/javascript" src="/static/fieldtrial/SCRIPTS/jquery/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/static/fieldtrial/SCRIPTS/jquery/jquery-ui.min.js"></script>
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="/static/fieldtrial/SCRIPTS/jquery/jquery-ui.min.css" type="text/css"/>
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="/static/fieldtrial/SCRIPTS/datatables/datatables.min.css" type="text/css"/>
+    <script type="text/javascript" src="/static/fieldtrial/SCRIPTS/datatables/datatables.min.js"></script>
+    <!-- **BOOTSTRAP 5.3.2** -->
+    <script src="/static/fieldtrial/SCRIPTS/bootstrap5.3.2/bootstrap.bundle.min.js"></script>     
+    <!-- Core theme JS  freelancer -->
+    <script src="/static/fieldtrial/js/scripts.js"></script> 
+    
+            
+    <!-- grassroots grassroots.css (modified) or site.css (original) -->
+    <link rel="stylesheet" href="/static/fieldtrial/site.css" type="text/css"/>
+    <!--<link href="https://grassroots.tools/css/site.css" rel="stylesheet">  -->
+    <link rel="stylesheet" href="/static/fieldtrial/overrides/style.css" type="text/css"/>
+    
+
+
+    <style>
+        /* Tabs styling */
+        .tabs {
+           list-style-type: none;
+           padding: 0;
+           margin: 0;
+           display: flex;
+           justify-content: center; /* Center tabs if they don't fill the entire width */
+           flex-wrap: wrap;
+           border-bottom: 2px solid #2C3E50; /* Visual separation */
+       }
+   
+       .tabs li {
+           display: inline-block;
+           margin-right: 10px;
+           padding: 10px 15px;
+           background-color: #2C3E50;
+           color: #fff;
+           cursor: pointer;
+           border-radius: 5px 5px 0 0; /* Rounded corners on the top */
+           transition: background-color 0.3s ease; /* Interaction effect */
+       }
+   
+       .tabs li.active, .tabs li:hover {
+           background-color: #1D2E40; /* Darker on hover/active */
+       }
+   
+       .tabs li a {
+           color: inherit; /* Ensures anchor tags inherit the li color */
+           text-decoration: none; /* No underline */
+       }
+   
+       /* Tab content styling */
+       .tab-content div {
+           display: none; /* Initially hide all content */
+           padding: 20px;
+           border: 1px solid #ddd;
+           background-color: #f9f9f9; /* Light background for readability */
+           margin-top: -1px; /* Align with tabs */
+           text-align: left;
+       }
+   
+       .tab-content div p {
+           color: #2C3E50; /* Text color */
+           text-align: left; 
+       }
+   
+       .tab-content div.active {
+           display: block; /* Show active tab content */
+       }
+   
+       /* Adjustments for smaller screens */
+       @media (max-width: 600px) {
+           .tabs {
+               flex-direction: column; /* Stack tabs vertically on small screens */
+           }
+       }
+   
+       /* Section and explanatory text styling */
+       #header-section .explanatory-text h2, #header-section .explanatory-text p {
+           color: #2C3E50; /* Unified color for header section text */
+           margin-bottom: 20px; /* Space below the text */
+       }
+   
+   
+   .close-button {
+     color: #aaa;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+   }
+   
+   .close-button:hover,
+   .close-button:focus {
+     color: black;
+     text-decoration: none;
+     cursor: pointer;
+   }
+   
+   
+   
+   #header-section .explanatory-text h2 {
+               font-size: 28px; 
+               color: #2C3E50;
+               margin-bottom: 20px;
+           }
+   
+           #header-section .explanatory-text p {
+               font-size: 20px; 
+               color: #2C3E50;
+               margin-bottom: 30px;
+           }
+   
+           .darker {
+       font-size: 18px; /* size of hyperlink text */
+    }
+    
+    #services, #results {
+       padding-top: 0;
+       margin-top: 1;
+   }
+   
+   
+    #search-results {
+           width: 100%; /* Adjust this value as needed */
+           max-width: 1600px; /* Optional: sets a maximum width */
+           margin: 0 auto; /* Centers the box */
+       }
+       #resultsTabs, #tabContent {
+           width: 100%; /* Ensures they take the full width of #search-results */
+       }
+       #loadingSpinner {
+       display: none; /* Initially hidden */
+       justify-content: center; /* Center horizontally */
+       align-items: center; /* Center vertically */
+       position: fixed; /* Or absolute, depending on the use case */
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background-color: rgba(255, 255, 255, 0.5); /* Optional: slight white overlay */
+       z-index: 1000; /* Ensure it's above other content */
+   }
+   
+   .spinner {
+       border: 4px solid rgba(0, 0, 0, 0.1);
+       width: 50px;
+       height: 50px;
+       border-radius: 50%;
+       border-left-color: #09f;
+       animation: spin 1s ease infinite;
+   }
+   
+   @keyframes spin {
+       0% {
+           transform: rotate(0deg);
+       }
+       100% {
+           transform: rotate(360deg);
+       }
+   }
+   
+   .publication-item {
+       padding-bottom: 10px; /* Add some space at the bottom */
+       margin-bottom: 10px; /* Add additional space below the border */
+       border-bottom: 1px solid #ccc; /* Thin, faint grey line */
+   }
+   
+   </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="/index.html" style="text-transform: none;">Grassroots Infrastructure</a>
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/index.html">Services</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/docs/">Docs</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/#data">Data</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/index.html#about">About</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/dfw">DFW</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;"
+                src="img/logo-white.png"/>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Search Box Section -->
+<header id="header-section" class="masthead"
+style="background-image: url('img/nature-2571086_1920_40_opac.png');background-position: center; text-align: justify ! important; padding-top: 0;">
+    <div class="container">
+        <section id="search" style="padding-top: 140px;  padding-bottom: 5px;">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                         
+                        <div class="explanatory-text" style="margin-bottom: 20px;">
+                            
+                            <p  style="color: #2C3E50; font-weight: bold;">Grassroots is a data sharing platform for the wheat community. Use the search box below to find resources, or scroll down to read more about the project.</p>
+                        
+
+                        <!-- Search Box -->
+                        <div class="search-box" style="border: 2px solid #2C3E50; padding: 20px; border-radius: 5px; background-color: rgba(255, 255, 255, 0.9); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <!-- Search box title and subtitle -->
+                            <div class="search-box-title" style="text-align: left; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2C3E50;">Grassroots Search</h4>
+                                <p style="margin: 0; color: #2C3E50; font-size: 14px;">Explore our system</p>
+                            </div>
+                            <!-- Search fields -->
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Enter search keyword...">
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="categorySelect" class="form-control">
+                                        <option value="All">All</option>
+                                        <option value="Dataset">Dataset</option>
+                                        <option value="Service">Service</option>
+                                        <option value="Field Trial">Field Trial</option>
+                                        <option value="Study">Study</option>
+                                        <option value="Location">Location</option>
+                                        <option value="MARTi Sample">MARTi Sample</option>
+                                        <option value="Programme">Programme</option>
+                                        <option value="Publication">Publication</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button onclick="sendNewSearchRequest()" class="btn btn-primary" style="margin-top: 10px;">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</header>
+
+
+
+<!-- Search results Section -->
+<header class="text-center" id="header-section">
+    <section class="success" id="services">
+        <div class="container">
+            <section id="results" style="padding-top: 5px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto text-center">
+                            <div id="search-results">
+                                <div id="search-message"></div>                                                        
+                                <div id="resultsTabs" class="tabs"></div>
+                                <div id="tabContent" class="tab-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div id="loadingSpinner" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </header>
+    
+    <script>
+    
+    function displayResults(data) {
+        window.publicationItemCount = 0;
+        window.DatasetItemCount = 0;
+        window.ProgrammeItemCount = 0;
+        const tabsContainer = document.getElementById('resultsTabs');
+        const contentContainer = document.getElementById('tabContent');
+    
+        // Clear previous tabs and content
+        tabsContainer.innerHTML = '';
+        contentContainer.innerHTML = '';
+    
+        if (data.results && data.results[0].metadata.total_hits > 0) {
+            const categoriesResults = {}; // Holds the results categorized by their type
+    
+            // Group results by their category
+            data.results[0].results.forEach(result => {
+                const category = result.data.type_description || 'Other';
+                if (!categoriesResults[category]) {
+                    categoriesResults[category] = [];
+                }
+                categoriesResults[category].push(result);
+            });
+    
+            // Create tabs and contents for categories with results
+            Object.keys(categoriesResults).forEach((category, index) => {
+                const tab = document.createElement('li');
+                const link = document.createElement('a');
+                link.textContent = category;
+                link.href = `#tab-${index}`;
+                tab.appendChild(link);
+                tabsContainer.appendChild(tab);
+    
+                const tabContent = document.createElement('div');
+                tabContent.id = `tab-${index}`;
+                categoriesResults[category].forEach(result => {
+                    const item = document.createElement('p');
+                    
+                    
+                    // Check if the category is 'Dataset' and customize the display
+                    if (category === "Dataset") {
+                    // Initialize content HTML string for the dataset item
+                    let contentHTML = '';
+                    // Append a horizontal rule before each dataset item except the first one
+                    if (!window.DatasetItemCount) {
+                        window.DatasetItemCount = 1; // Initialize if it doesn't exist
+                    } else {
+                    // Append a horizontal rule for subsequent items
+                        contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                        window.DatasetItemCount++; // Increment for each item processed
+                    }
+                    const titleLink = `<a href="${result.data['so:url']}" target="_blank">${result.data['so:name']}</a>`;
+                    const authorsList = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
+                    const description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+    
+                    // Append the dataset-specific content with authors on a new line in Italics and the description on another line
+                    contentHTML += `${titleLink}<br/>${authorsList}<br/>${description}`;
+                    // Set the item's innerHTML
+                    item.innerHTML = contentHTML;
+                    }
+                    else if (category === "Study") {
+                        const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
+                        const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+                        item.innerHTML = titleLink;
+                    }
+                    else if (category === "Field Trial") {
+                        const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
+                        const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+                        item.innerHTML = titleLink;
+                    }
+                    else if (category === "Programme") {
+                    // Initialize content HTML string for the programme item
+                    let contentHTML = '';
+                    // Append a horizontal rule before each programme item except the first one
+                    if (!window.ProgrammeItemCount) {
+                        window.ProgrammeItemCount = 1; // Initialize if it doesn't exist
+                    } else {
+                        // Append a horizontal rule for subsequent items
+                        contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                        window.ProgrammeItemCount++; // Increment for each item processed
+                    }
+    
+                    let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
+                    let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
+                    // Append the rest of the programme-specific content
+                    contentHTML += titleLink;
+                    if (principalInvestigator) {
+                        contentHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
+                    }
+    
+                    contentHTML += result.data['so:description'] ? result.data['so:description'] : '';
+                    // Set the item's innerHTML
+                    item.innerHTML = contentHTML;
+                    }
+                    else if (category === "Publication") {
+                        let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
+                        let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author'; // Directly use the 'author' string
+    
+                        let authors = authorsText.replace(/;/g, ','); // Replace semicolons with commas
+    
+                        let title = result.data['so:name']; 
+                        let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+    
+                        // Initialize content HTML string for the publication item
+                        let contentHTML = '';
+                        //let contentHTML = '<div class="publication-item">'; // it does not work!
+                        
+                        
+                        // Append a horizontal rule before each publication item except the first one
+                        // Use a static variable to keep track of the item count                    
+                        if (!window.publicationItemCount) {
+                        window.publicationItemCount = 1; // Initialize if it doesn't exist
+                        } else {
+                        // Append a horizontal rule for subsequent items
+                        contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                        window.publicationItemCount++; // Increment for each item processed
+                        }    
+    
+                        
+                        if (publicationLink) {
+                            contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
+                        } else {
+                            contentHTML += `<i>${title}</i><br/>`;
+                        }
+                        // Append authors in italics
+                        contentHTML += `<i>${authors}</i><br/>`;
+                        // Append description
+                        contentHTML += `${description}<br/>`;
+                        
+                        //contentHTML += '</div>'; // End publication item div    
+                        item.innerHTML = contentHTML;
+                    }
+                    else if (category === "MARTi Sample") {
+                        let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
+                        let title = result.data['so:name']; // Assuming this holds the sample title
+                        let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                        let siteName = result.data['site_name'] ? result.data['site_name'] : '';
+            
+                        // Initialize content HTML string for the MARTi Sample item
+                        let contentHTML = '';
+    
+                        // Append title as a hyperlink
+                        if (sampleLink) {
+                        contentHTML += `<a style="color:#18bc9c !important;" href="${sampleLink}" target="_blank">${title}</a><br/>`;
+                        }
+        
+                        contentHTML += `<i>${description}</i><br/>`;
+                        // Append site name if available
+                        if (siteName) {
+                            contentHTML += `Site: ${siteName}`;
+                        }
+                        item.innerHTML = contentHTML;
+                    }
+                    else if (category === "Service") {
+                    let title = result.data['service'] ? result.data['service'] : 'No Title Available'; // Assuming 'service' holds the title
+                    let serviceName = result.data['so:name'] ? result.data['so:name'] : '';
+                    let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                    let payloadUri = result.data['payload'] ? encodeURIComponent(JSON.stringify(result.data['payload'])) : '';
+                    let serviceLink = `https://grassroots.tools/service/payload/${payloadUri}`; // Construct the link using payloadUri        
+            
+                    let contentHTML = '';
+    
+                    // Append title as a hyperlink
+                    if (payloadUri) {
+                        contentHTML += `<a style="color:#18bc9c !important;" class="newstyle_link" href="${serviceLink}" target="_blank">${title}</a><br/>`;
+                    }
+                    contentHTML += `<b>${serviceName}</b><br/>`;
+                    contentHTML += `${description}<br/>`;
+                    item.innerHTML = contentHTML;
+                    }
+                    else if (category === "Measured Variable") {
+                        const title = result.data['so:name'];
+                        const unitName = result.data.variable['so:name'];
+                        const trait = result.data.trait['so:name'];
+                        const traitDescription = result.data.trait['so:description'];
+    
+                        let contentHTML = `<strong>${title}</strong><br>`;
+                        contentHTML += `Trait ontology name: ${unitName}<br>`;
+                        contentHTML += `<i>${trait}</i>: ${traitDescription}`;
+    
+                        item.innerHTML = contentHTML;
+                    }
+    
+    
+                    else {
+                        item.innerHTML = result.title; // Default display for other categories
+                    }
+    
+    
+                    tabContent.appendChild(item);
+                });
+                contentContainer.appendChild(tabContent);
+    
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelectorAll('.tab-content div').forEach(div => div.style.display = 'none');
+                    document.querySelectorAll('.tabs li a').forEach(a => a.classList.remove('active'));
+                    tabContent.style.display = 'block';
+                    link.classList.add('active');
+                });
+    
+                // Automatically activate the first tab
+                if (index === 0) {
+                    link.classList.add('active');
+                    tabContent.style.display = 'block';
+                }
+            });
+        } else {
+            contentContainer.innerHTML = '<p>No results found.</p>';
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const keyword = params.get('keyword');
+        const category = params.get('category');
+    
+        // Initialize the search fields with current search parameters, if any
+        document.getElementById('searchInput').value = keyword || '';
+        document.getElementById('categorySelect').value = category || 'All';
+    
+        sendSearchRequest(keyword, category); // Call search on page load with current parameters
+    });
+    
+    function sendSearchRequest(keyword, category) {
+        // Show the spinner
+        document.getElementById('loadingSpinner').style.display = 'block';
+    
+        const categoryValue = category === "All" ? "<ANY>" : category;
+        let hasTimedOut = false; 
+    
+        var searchRequest = {
+            "services": [{
+                "start_service": true,
+                "so:alternateName": "search",
+                "parameter_set": {
+                    "level": "simple",
+                    "parameters": [
+                        { "param": "SS Keyword Search", "current_value": keyword },
+                        { "param": "SS Facet", "current_value": categoryValue },
+                        { "param": "SS Results Page Number", "current_value": 0 },
+                        { "param": "SS Results Page Size", "current_value": 500 }
+                    ]
+                }
+            }]
+        };
+    
+        // Set a timeout limit for the search (e.g., 10 seconds)
+        const searchTimeout = setTimeout(() => {
+            hasTimedOut = true; // Indicate that the request has timed out
+            document.getElementById('loadingSpinner').style.display = 'none';
+            // Inform the user that the search took too long
+            document.getElementById('search-results').innerHTML = `<p>Search timed out. Please try again.</p>`;
+        }, 8000); // 10000 milliseconds = 10 seconds
+    
+    
+        //fetch('http://127.0.0.1:2000/grassroots/public_backend', {
+        fetch('https://grassroots.tools/beta/grassroots/public_backend', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(searchRequest),
+        })
+        .then(response => response.json())
+        .then(data => {
+            clearTimeout(searchTimeout); // Cancel the timeout if the search completes in time
+            if (!hasTimedOut) { // Proceed only if there hasn't been a timeout
+                displayResults(data);
+                document.getElementById('loadingSpinner').style.display = 'none';
+            }
+        })
+        .catch((error) => {
+            clearTimeout(searchTimeout); // Ensure to clear the timeout 
+            if (!hasTimedOut) { // Show error only if there hasn't been a timeout
+                console.error('Error:', error);
+                displayError(); // Function to display an error message
+            }
+        });
+    }
+    
+    function sendNewSearchRequest() {
+        var keyword = document.getElementById('searchInput').value.trim();
+        var category = document.getElementById('categorySelect').value;
+        var messageElement = document.getElementById('search-message'); // Get the dedicated message element
+    
+        // Clear any previous message
+        messageElement.innerHTML = '';
+    
+        if (!keyword) {
+            // If keyword is empty, display a message in the dedicated message element and do not proceed with the search
+            messageElement.innerHTML = `<p>Please enter a search term.</p>`;
+            // Optionally, you might want to focus the search input field to prompt the user to type
+            document.getElementById('searchInput').focus();
+        } else {
+            // If there is a keyword, proceed with the search request
+            sendSearchRequest(keyword, category);
+        }
+    }
+    
+    function displayError() {
+        document.getElementById('search-results').innerHTML = `<p>There was an error processing your search. Please try again.</p>`;
+    }
+    </script>
+
+
+    
+    <!--footer-->
+<footer class="text-center">
+    <div class="footer-above">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col col-md-12" style="text-align: left !important;">
+                    <h5 style="text-align: center;">Funding</h5>
+                    <p style="text-align: justify; font-size: 1.12em;">The author(s) acknowledge the support of the Biotechnology and Biological Sciences Research Council (BBSRC), 
+                        part of UK Research and Innovation; this research was funded by the BBSRC 
+                        Designing Future Wheat grant BB/P016855/1 and its constituent work packages(BBS/E/T/000PR9783 
+                        (DFW WP4 Data Access and Analysis) BBS/E/T/000PR9784 (DFW WP2 Added value and resilience) BBS/E/T/000PR9785 (DFW WP1 Increased efficiency and sustainability), 
+                        Cross Institute Strategic Programme Grant Delivering Sustainable Wheat BBX011003/1 and its 
+                        constituent work packages BBS/E/ER/230003A (DSW WP1 Targeted Sustainability-Trait Discovery),
+                         BBS/E/ER/230003B (DSW WP2 Delivering Resilience to Biotic Stress), 
+                         BBS/E/ER/230003C (DSW WP4 Sustainable Data Frameworks for Wheat) and 
+                         Core Capability Grants BB/CCG1720/1 and BB/CCG2220/1 and the work delivered via the
+                          BBSRC National Capability in e‐Infrastructure (BBS/E/T/000PR9814) 
+                        at the Earlham Institute by members of the e‐Infrastructure group.</p>
+                </div>
+            </div>
+            <!-- First Row for Earlham Institute and Project Code -->
+            <div class="row">
+                <div class="footer-col col-md-6" style="text-align: left !important;">
+                    <h5>Earlham Institute</h5>
+                    <p>Norwich Research Park<br/>
+                        Norwich<br/>
+                        NR4 7UZ<br/>
+                        UK</p>
+                </div>
+                <div class="footer-col col-md-6">
+                    <h5>Project Code</h5>
+                    <p>The project is fully open source and the source code is available on <a
+                            href="https://github.com/TGAC?q=grassroots" target="_blank">GitHub</a>:</p>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="https://github.com/TGAC?q=grassroots"
+                               target="_blank">
+                                <i class="fab fa-fw fa-github"></i>
+                            </a>
+                        </li>
+                        <!-- Example of additional social media. Uncomment and modify as needed.
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-twitter"></i>
+                            </a>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-below">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    &copy; 2017 - 2024 Brought to you by <a href="http://www.earlham.ac.uk/" target="_blank">Earlham
+                    Institute</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Additional scripts if any -->
+        
+</body>
+</html>
