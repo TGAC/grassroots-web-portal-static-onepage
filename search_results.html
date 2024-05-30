@@ -300,228 +300,159 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
     <script>
     
     function displayResults(data) {
-        window.publicationItemCount = 0;
-        window.DatasetItemCount = 0;
-        window.ProgrammeItemCount = 0;
-        const tabsContainer = document.getElementById('resultsTabs');
-        const contentContainer = document.getElementById('tabContent');
-    
-        // Clear previous tabs and content
-        tabsContainer.innerHTML = '';
-        contentContainer.innerHTML = '';
-    
-        if (data.results && data.results[0].metadata.total_hits > 0) {
-            const categoriesResults = {}; // Holds the results categorized by their type
-    
-            // Group results by their category
-            data.results[0].results.forEach(result => {
-                const category = result.data.type_description || 'Other';
-                if (!categoriesResults[category]) {
-                    categoriesResults[category] = [];
-                }
-                categoriesResults[category].push(result);
+      // Local counters scoped within the function
+      let publicationItemCount = 0;
+      let datasetItemCount = 0;
+      let programmeItemCount = 0;
+
+      const tabsContainer = document.getElementById('resultsTabs');
+      const contentContainer = document.getElementById('tabContent');
+
+      // Clear previous tabs and content
+      tabsContainer.innerHTML = '';
+      contentContainer.innerHTML = '';
+
+      if (data.results && data.results[0].metadata.total_hits > 0) {
+        const categoriesResults = {}; // Holds the results categorized by their type
+
+        // Group results by their category
+        data.results[0].results.forEach(result => {
+            const category = result.data.type_description || 'Other';
+            if (!categoriesResults[category]) {
+                categoriesResults[category] = [];
+            }
+            categoriesResults[category].push(result);
+        });
+
+        // Create tabs and contents for categories with results
+        Object.keys(categoriesResults).forEach((category, index) => {
+            const tab = document.createElement('li');
+            const link = document.createElement('a');
+            link.textContent = category;
+            link.href = `#tab-${index}`;
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.tab-content div').forEach(div => div.style.display = 'none');
+                document.querySelectorAll('.tabs li a').forEach(a => a.classList.remove('active'));
+                document.getElementById(`tab-${index}`).style.display = 'block';
+                link.classList.add('active');
             });
-    
-            // Create tabs and contents for categories with results
-            Object.keys(categoriesResults).forEach((category, index) => {
-                const tab = document.createElement('li');
-                const link = document.createElement('a');
-                link.textContent = category;
-                link.href = `#tab-${index}`;
-                tab.appendChild(link);
-                tabsContainer.appendChild(tab);
-    
-                const tabContent = document.createElement('div');
-                tabContent.id = `tab-${index}`;
-                categoriesResults[category].forEach(result => {
-                    const item = document.createElement('p');
-                    
-                    
-                    // Check if the category is 'Dataset' and customize the display
-                    if (category === "Dataset") {
-                    // Initialize content HTML string for the dataset item
-                    let contentHTML = '';
-                    // Append a horizontal rule before each dataset item except the first one
-                    if (!window.DatasetItemCount) {
-                        window.DatasetItemCount = 1; // Initialize if it doesn't exist
-                    } else {
-                    // Append a horizontal rule for subsequent items
+            tab.appendChild(link);
+            tabsContainer.appendChild(tab);
+
+            const tabContent = document.createElement('div');
+            tabContent.id = `tab-${index}`;
+            categoriesResults[category].forEach(result => {
+                const item = document.createElement('p');
+                
+                // Common structure for most categories
+                let contentHTML = '';
+                if (category === "Dataset") {
+                    if (datasetItemCount > 0) {
                         contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
-                        window.DatasetItemCount++; // Increment for each item processed
                     }
+                    datasetItemCount++;
                     const titleLink = `<a href="${result.data['so:url']}" target="_blank">${result.data['so:name']}</a>`;
                     const authorsList = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
                     const description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
-    
-                    // Append the dataset-specific content with authors on a new line in Italics and the description on another line
                     contentHTML += `${titleLink}<br/>${authorsList}<br/>${description}`;
-                    // Set the item's innerHTML
-                    item.innerHTML = contentHTML;
-                    }
-                    else if (category === "Study") {
-                        const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
-                        const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
-                        item.innerHTML = titleLink;
-                    }
-                    else if (category === "Field Trial") {
-                        const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
-                        const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
-                        item.innerHTML = titleLink;
-                    }
-                    else if (category === "Programme") {
-                    // Initialize content HTML string for the programme item
-                    let contentHTML = '';
-                    // Append a horizontal rule before each programme item except the first one
-                    if (!window.ProgrammeItemCount) {
-                        window.ProgrammeItemCount = 1; // Initialize if it doesn't exist
-                    } else {
-                        // Append a horizontal rule for subsequent items
+                } else if (category === "Study") {
+                    const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
+                    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+                    contentHTML = titleLink;
+                } else if (category === "Field Trial") {
+                    const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
+                    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+                    contentHTML = titleLink;
+                } else if (category === "Programme") {
+                    if (programmeItemCount > 0) {
                         contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
-                        window.ProgrammeItemCount++; // Increment for each item processed
                     }
-    
+                    programmeItemCount++;
                     let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
                     let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
                     let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
-                    // Append the rest of the programme-specific content
                     contentHTML += titleLink;
                     if (principalInvestigator) {
                         contentHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
                     }
-    
                     contentHTML += result.data['so:description'] ? result.data['so:description'] : '';
-                    // Set the item's innerHTML
-                    item.innerHTML = contentHTML;
-                    }
-                    else if (category === "Publication") {
-                        let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
-                        let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author'; // Directly use the 'author' string
-    
-                        let authors = authorsText.replace(/;/g, ','); // Replace semicolons with commas
-    
-                        let title = result.data['so:name']; 
-                        let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
-    
-                        // Initialize content HTML string for the publication item
-                        let contentHTML = '';
-                        //let contentHTML = '<div class="publication-item">'; // it does not work!
-                        
-                        
-                        // Append a horizontal rule before each publication item except the first one
-                        // Use a static variable to keep track of the item count                    
-                        if (!window.publicationItemCount) {
-                        window.publicationItemCount = 1; // Initialize if it doesn't exist
-                        } else {
-                        // Append a horizontal rule for subsequent items
+                } else if (category === "Publication") {
+                    if (publicationItemCount > 0) {
                         contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
-                        window.publicationItemCount++; // Increment for each item processed
-                        }    
-    
-                        
-                        if (publicationLink) {
-                            contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
-                        } else {
-                            contentHTML += `<i>${title}</i><br/>`;
-                        }
-                        // Append authors in italics
-                        contentHTML += `<i>${authors}</i><br/>`;
-                        // Append description
-                        contentHTML += `${description}<br/>`;
-                        
-                        //contentHTML += '</div>'; // End publication item div    
-                        item.innerHTML = contentHTML;
                     }
-                    else if (category === "MARTi Sample") {
-                        let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
-                        let title = result.data['so:name']; // Assuming this holds the sample title
-                        let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
-                        let siteName = result.data['site_name'] ? result.data['site_name'] : '';
-            
-                        // Initialize content HTML string for the MARTi Sample item
-                        let contentHTML = '';
-    
-                        // Append title as a hyperlink
-                        if (sampleLink) {
+                    publicationItemCount++;
+                    let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author';
+                    let authors = authorsText.replace(/;/g, ',');
+                    let title = result.data['so:name'];
+                    let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                    if (publicationLink) {
+                        contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
+                    } else {
+                        contentHTML += `<i>${title}</i><br/>`;
+                    }
+                    contentHTML += `<i>${authors}</i><br/>${description}<br/>`;
+                } else if (category === "MARTi Sample") {
+                    let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let title = result.data['so:name'];
+                    let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                    let siteName = result.data['site_name'] ? result.data['site_name'] : '';
+                    if (sampleLink) {
                         contentHTML += `<a style="color:#18bc9c !important;" href="${sampleLink}" target="_blank">${title}</a><br/>`;
-                        }
-        
-                        contentHTML += `<i>${description}</i><br/>`;
-                        // Append site name if available
-                        if (siteName) {
-                            contentHTML += `Site: ${siteName}`;
-                        }
-                        item.innerHTML = contentHTML;
                     }
-                    else if (category === "Service") {
-                    let title = result.data['service'] ? result.data['service'] : 'No Title Available'; // Assuming 'service' holds the title
+                    contentHTML += `<i>${description}</i><br/>Site: ${siteName}`;
+                } else if (category === "Service") {
+                    let title = result.data['service'] ? result.data['service'] : 'No Title Available';
                     let serviceName = result.data['so:name'] ? result.data['so:name'] : '';
                     let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
                     let payloadUri = result.data['payload'] ? encodeURIComponent(JSON.stringify(result.data['payload'])) : '';
-                    let serviceLink = `https://grassroots.tools/service/payload/${payloadUri}`; // Construct the link using payloadUri        
-            
-                    let contentHTML = '';
-    
-                    // Append title as a hyperlink
+                    let serviceLink = `https://grassroots.tools/service/payload/${payloadUri}`;
                     if (payloadUri) {
                         contentHTML += `<a style="color:#18bc9c !important;" class="newstyle_link" href="${serviceLink}" target="_blank">${title}</a><br/>`;
                     }
-                    contentHTML += `<b>${serviceName}</b><br/>`;
-                    contentHTML += `${description}<br/>`;
-                    item.innerHTML = contentHTML;
-                    }
-                    else if (category === "Measured Variable") {
-                        const title = result.data['so:name'];
-                        const unitName = result.data.variable['so:name'];
-                        const trait = result.data.trait['so:name'];
-                        const traitDescription = result.data.trait['so:description'];
-    
-                        let contentHTML = `<strong>${title}</strong><br>`;
-                        contentHTML += `Trait ontology name: ${unitName}<br>`;
-                        contentHTML += `<i>${trait}</i>: ${traitDescription}`;
-    
-                        item.innerHTML = contentHTML;
-                    }
-    
-    
-                    else {
-                        item.innerHTML = result.title; // Default display for other categories
-                    }
-    
-    
-                    tabContent.appendChild(item);
-                });
-                contentContainer.appendChild(tabContent);
-    
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelectorAll('.tab-content div').forEach(div => div.style.display = 'none');
-                    document.querySelectorAll('.tabs li a').forEach(a => a.classList.remove('active'));
-                    tabContent.style.display = 'block';
-                    link.classList.add('active');
-                });
-    
-                // Automatically activate the first tab
-                if (index === 0) {
-                    link.classList.add('active');
-                    tabContent.style.display = 'block';
+                    contentHTML += `<b>${serviceName}</b><br/>${description}<br/>`;
+                } else if (category === "Measured Variable") {
+                    const title = result.data['so:name'];
+                    const unitName = result.data.variable['so:name'];
+                    const trait = result.data.trait['so:name'];
+                    const traitDescription = result.data.trait['so:description'];
+                    contentHTML = `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: ${traitDescription}`;
+                } else {
+                    // Default display for other categories
+                    contentHTML = result.title;
                 }
+
+                item.innerHTML = contentHTML;
+                tabContent.appendChild(item);
             });
-        } else {
-            contentContainer.innerHTML = '<p>No results found.</p>';
+            contentContainer.appendChild(tabContent);
+
+            // Automatically activate the first tab
+            if (index === 0) {
+                link.classList.add('active');
+                tabContent.style.display = 'block';
+            }
+        });
+          } else {
+         contentContainer.innerHTML = '<p>No results found.</p>';
         }
-    }
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        const params = new URLSearchParams(window.location.search);
-        const keyword = params.get('keyword');
-        const category = params.get('category');
-    
-        // Initialize the search fields with current search parameters, if any
-        document.getElementById('searchInput').value = keyword || '';
-        document.getElementById('categorySelect').value = category || 'All';
-    
-        sendSearchRequest(keyword, category); // Call search on page load with current parameters
-    });
+     }
+
+     document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const keyword = params.get('keyword');
+      const category = params.get('category');
+
+      // Initialize the search fields with current search parameters, if any
+      document.getElementById('searchInput').value = keyword || '';
+      document.getElementById('categorySelect').value = category || 'All';
+
+      sendSearchRequest(keyword, category); // Call search on page load with current parameters
+      }
+    );
+
+
     
     function sendSearchRequest(keyword, category) {
         // Show the spinner
