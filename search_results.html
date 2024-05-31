@@ -304,6 +304,7 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
       let publicationItemCount = 0;
       let datasetItemCount = 0;
       let programmeItemCount = 0;
+      let studyItemCount = 0; // Counter for Study items
 
       const tabsContainer = document.getElementById('resultsTabs');
       const contentContainer = document.getElementById('tabContent');
@@ -349,7 +350,7 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                 let contentHTML = '';
                 if (category === "Dataset") {
                     if (datasetItemCount > 0) {
-                        contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
                     }
                     datasetItemCount++;
                     const titleLink = `<a href="${result.data['so:url']}" target="_blank">${result.data['so:name']}</a>`;
@@ -357,16 +358,31 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     const description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
                     contentHTML += `${titleLink}<br/>${authorsList}<br/>${description}`;
                 } else if (category === "Study") {
-                    const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
+                    if (studyItemCount > 0) {
+                        console.log("Study item count: " + studyItemCount);
+                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    studyItemCount++;
+                   const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
                     const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
-                    contentHTML = titleLink;
+                    const description = result.data['so:description'] ? `<br><span>${result.data['so:description']}</span>` : '';
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                        const providerName = result.data.provider['so:name'];
+                        providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">(${providerName})</span>`;
+                    }
+
+                    contentHTML += titleLink + providerHTML + description;
+                    //contentHTML += titleLink + description;
                 } else if (category === "Field Trial") {
                     const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
                     const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
                     contentHTML = titleLink;
                 } else if (category === "Programme") {
                     if (programmeItemCount > 0) {
-                        contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
                     }
                     programmeItemCount++;
                     let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
@@ -379,14 +395,16 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     contentHTML += result.data['so:description'] ? result.data['so:description'] : '';
                 } else if (category === "Publication") {
                     if (publicationItemCount > 0) {
-                        contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                        //contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
+                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
                     }
                     publicationItemCount++;
                     let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
                     let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author';
                     let authors = authorsText.replace(/;/g, ',');
                     let title = result.data['so:name'];
-                    let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                    //let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                    let description = result.data['so:description'] ? `<span style="font-size: 0.8em;">${result.data['so:description']}</span>` : 'No description available';
                     if (publicationLink) {
                         contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
                     } else {
@@ -486,8 +504,8 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
         }, 8000); // 10000 milliseconds = 10 seconds
     
     
-        //fetch('http://127.0.0.1:2000/grassroots/public_backend', {
-        fetch('https://grassroots.tools/beta/grassroots/public_backend', {
+        fetch('http://127.0.0.1:2000/grassroots/public_backend', {
+        //fetch('https://grassroots.tools/beta/grassroots/public_backend', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
