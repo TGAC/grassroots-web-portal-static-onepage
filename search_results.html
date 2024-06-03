@@ -183,7 +183,44 @@
        margin-bottom: 10px; /* Add additional space below the border */
        border-bottom: 1px solid #ccc; /* Thin, faint grey line */
    }
-   
+
+    
+   .study-item {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        border: none !important; /* Remove any borders */
+        padding: 0 !important; /* Remove any padding */
+    }
+    .study-item .title-link {
+        display: inline-block !important;
+        max-width: calc(100% - 200px) !important; /* Adjusted width */
+        vertical-align: middle !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    .study-item .provider-name {
+        display: inline-block !important;
+        max-width: 280px !important; /* Adjusted width */
+        text-align: right !important;
+        vertical-align: middle !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+     .description {
+        font-size: 0.8em !important; /* Adjust the size as needed */
+        margin-top: 2px !important; /* Add some spacing if needed */
+	 white-space: normal !important; /* Allow normal wrapping */
+        overflow: visible !important; /* Allow overflow to be visible */
+	display: block !important; /* Ensure it is a block element */
+	 border: none !important; /* Remove any borders */
+    }
    </style>
 
 </head>
@@ -357,26 +394,42 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     const authorsList = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
                     const description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
                     contentHTML += `${titleLink}<br/>${authorsList}<br/>${description}`;
-                } else if (category === "Study") {
-                    if (studyItemCount > 0) {
-                        console.log("Study item count: " + studyItemCount);
-                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
-                    }
-                    studyItemCount++;
-                   const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
-                    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
-                    const description = result.data['so:description'] ? `<br><span>${result.data['so:description']}</span>` : '';
+                } 
 
-                    // Check for the provider information
-                    let providerHTML = '';
-                    if (result.data.provider && result.data.provider['so:name']) {
-                        const providerName = result.data.provider['so:name'];
-                        providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">(${providerName})</span>`;
-                    }
 
-                    contentHTML += titleLink + providerHTML + description;
-                    //contentHTML += titleLink + description;
-                } else if (category === "Field Trial") {
+
+else if (category === "Study") {
+    if (studyItemCount > 0) {
+        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+    }
+    studyItemCount++;
+    const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
+    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+    //const description = result.data['so:description'] ? `<br><span style="font-size: 0.9em;">${result.data['so:description']}</span>` : '';
+	const description = result.data['so:description'] ? `<span class="description">${result.data['so:description']}</span>` : '<span class="description">No description available</span>';
+
+    let providerHTML = '';
+    if (result.data.provider && result.data.provider['so:name']) {
+        const providerName = result.data.provider['so:name'];
+        providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">(${providerName})</span>`;
+    }
+
+    contentHTML += `
+        <div class="study-item">
+            <span class="title-link">${titleLink}</span>
+            <span class="provider-name">${providerHTML}</span>
+        </div>
+	   <div class="description">${description}</div>
+    `;
+
+	console.log('Study Item Count:', studyItemCount);
+    console.log('Study Title Link:', titleLink);
+    console.log('Study Provider:', providerHTML);
+    console.log('Generated HTML for Study Item:', contentHTML);
+}
+
+
+			else if (category === "Field Trial") {
                     const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
                     const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
                     contentHTML = titleLink;
@@ -504,8 +557,8 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
         }, 8000); // 10000 milliseconds = 10 seconds
     
     
-        fetch('http://127.0.0.1:2000/grassroots/public_backend', {
-        //fetch('https://grassroots.tools/beta/grassroots/public_backend', {
+        //fetch('http://127.0.0.1:2000/grassroots/public_backend', {
+        fetch('https://grassroots.tools/beta/grassroots/public_backend', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
