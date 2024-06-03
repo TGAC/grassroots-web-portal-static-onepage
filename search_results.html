@@ -185,7 +185,7 @@
    }
 
     
-   .study-item, .programme-item {
+   .study-item, .programme-item, .publication-item {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
@@ -196,8 +196,7 @@
     border: none !important; /* Remove any borders */
     padding: 0 !important; /* Remove any padding */
 }
-
-.study-item .title-link, .programme-item .title-link {
+.study-item .title-link, .programme-item .title-link, .publication-item .title-link {
     display: inline-block !important;
     max-width: calc(100% - 200px) !important; /* Adjusted width */
     vertical-align: middle !important;
@@ -205,8 +204,7 @@
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
-
-.study-item .provider-name, .programme-item .provider-name {
+.study-item .provider-name, .programme-item .provider-name, .publication-item .provider-name {
     display: inline-block !important;
     max-width: 280px !important; /* Adjusted width */
     text-align: right !important;
@@ -467,33 +465,40 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
 
 
 
-                else if (category === "Publication") {
-                    if (publicationItemCount > 0) {                        
-                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
-                    }
-                    publicationItemCount++;
-                    let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
-                    let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author';
-                    let authors = authorsText.replace(/;/g, ',');
-                    let title = result.data['so:name'];
-                    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
+                    else if (category === "Publication") {
+    if (publicationItemCount > 0) {                        
+        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+    }
+    publicationItemCount++;
+    let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
+    let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author';
+    let authors = authorsText.replace(/;/g, ',');
+    let title = result.data['so:name'];
+    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
 
-                    // Check for the provider information
-                    let providerHTML = '';
-                    if (result.data.provider && result.data.provider['so:name']) {
-                    const providerName = result.data.provider['so:name'];
-                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
-                    providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">${providerLogo}(${providerName})</span>`;
-                    }
+    // Check for the provider information
+    let providerHTML = '';
+    if (result.data.provider && result.data.provider['so:name']) {
+        const providerName = result.data.provider['so:name'];
+        const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+        providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+    }
 
-                    // Combine the title and provider
-                    const titleWithProvider = publicationLink ? 
-                    `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a> ${providerHTML}<br/>` : 
-                    `<i>${title}</i> ${providerHTML}<br/>`;
+    // Combine the title and provider
+    const titleWithProvider = publicationLink ? 
+        `<a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a>` : 
+        `<i>${title}</i>`;
 
-                    contentHTML += titleWithProvider;
-                    contentHTML += `<i>${authors}</i><br/>${description}<br/>`;
-               
+    contentHTML += `
+        <div class="publication-item">
+            <span class="title-link">${titleWithProvider}</span>
+            ${providerHTML}
+        </div>
+        <i>${authors}</i><br/>
+        <div class="description">${description}</div>
+        
+    `;
+              
                 } else if (category === "MARTi Sample") {
                     let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
                     let title = result.data['so:name'];
