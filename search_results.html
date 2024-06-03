@@ -186,33 +186,63 @@
 
     
    .study-item {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        width: 100% !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        border: none !important; /* Remove any borders */
-        padding: 0 !important; /* Remove any padding */
-    }
-    .study-item .title-link {
-        display: inline-block !important;
-        max-width: calc(100% - 200px) !important; /* Adjusted width */
-        vertical-align: middle !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-    .study-item .provider-name {
-        display: inline-block !important;
-        max-width: 280px !important; /* Adjusted width */
-        text-align: right !important;
-        vertical-align: middle !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    border: none !important; /* Remove any borders */
+    padding: 0 !important; /* Remove any padding */
+}
+.study-item .title-link {
+    display: inline-block !important;
+    max-width: calc(100% - 200px) !important; /* Adjusted width */
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+.study-item .provider-name {
+    display: inline-block !important;
+    max-width: 280px !important; /* Adjusted width */
+    text-align: right !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.programme-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    border: none !important; /* Remove any borders */
+    padding: 0 !important; /* Remove any padding */
+}
+.programme-item .title-link {
+    display: inline-block !important;
+    max-width: calc(100% - 200px) !important; /* Adjusted width */
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+.programme-item .provider-name {
+    display: inline-block !important;
+    max-width: 280px !important; /* Adjusted width */
+    text-align: right !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
      .description {
         font-size: 0.9em !important; /* Adjust the size as needed */
         margin-top: 2px !important; /* Add some spacing if needed */
@@ -341,7 +371,8 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
       let publicationItemCount = 0;
       let datasetItemCount = 0;
       let programmeItemCount = 0;
-      let studyItemCount = 0; // Counter for Study items
+      let studyItemCount = 0; // Counter for studies
+      let MeasuredVariableItemCount = 0; 
 
       const tabsContainer = document.getElementById('resultsTabs');
       const contentContainer = document.getElementById('tabContent');
@@ -408,9 +439,9 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
 
                     let providerHTML = '';
                     if (result.data.provider && result.data.provider['so:name']) {
-        const providerName = result.data.provider['so:name'];
-        const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
-        providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">${providerLogo}(${providerName})</span>`;
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">${providerLogo}(${providerName})</span>`;
                      }
 
                     contentHTML += `
@@ -431,7 +462,8 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
                     const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
                     contentHTML = titleLink;
-                } else if (category === "Programme") {
+                } 
+                else if (category === "Programme") {
     if (programmeItemCount > 0) {
         contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
     }
@@ -439,13 +471,31 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
     let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
     let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
     let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
-    contentHTML += titleLink;
+
+    // Check for the provider information
+    let providerHTML = '';
+    if (result.data.provider && result.data.provider['so:name']) {
+        const providerName = result.data.provider['so:name'];
+        const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+        providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">${providerLogo}(${providerName})</span>`;
+    }
+
+    // Combine the title and provider
+    const titleWithProvider = `${titleLink} ${providerHTML}`;
+
+    contentHTML += `
+        <div class="programme-item">
+            <span class="title-link">${titleWithProvider}</span>
+        </div>
+    `;
     if (principalInvestigator) {
         contentHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
     }
     let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
     contentHTML += description;
 }
+
+
                 else if (category === "Publication") {
                     if (publicationItemCount > 0) {                        
                     contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
@@ -456,12 +506,23 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     let authors = authorsText.replace(/;/g, ',');
                     let title = result.data['so:name'];
                     let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
-                    if (publicationLink) {
-                    contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
-                    } else {
-                    contentHTML += `<i>${title}</i><br/>`;
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">${providerLogo}(${providerName})</span>`;
                     }
-                    contentHTML += `<i>${authors}</i><br/>${description}<br/>`;                
+
+                    // Combine the title and provider
+                    const titleWithProvider = publicationLink ? 
+                    `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a> ${providerHTML}<br/>` : 
+                    `<i>${title}</i> ${providerHTML}<br/>`;
+
+                    contentHTML += titleWithProvider;
+                    contentHTML += `<i>${authors}</i><br/>${description}<br/>`;
+               
                 } else if (category === "MARTi Sample") {
                     let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
                     let title = result.data['so:name'];
@@ -482,12 +543,16 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     }
                     contentHTML += `<b>${serviceName}</b><br/>${description}<br/>`;
                 } else if (category === "Measured Variable") {
+                    if (MeasuredVariableItemCount > 0) {
+                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    MeasuredVariableItemCount++;
                     const title = result.data['so:name'];
                     const unitName = result.data.variable['so:name'];
                     const trait = result.data.trait['so:name'];
                     const traitDescription = result.data.trait['so:description'];
                     //contentHTML = `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: ${traitDescription}`;
-                    contentHTML = `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: <div class="description">${traitDescription}</div>`;
+                    contentHTML += `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: <div class="description">${traitDescription}</div>`;
 
                 } else {
                     // Default display for other categories
@@ -557,8 +622,8 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
         }, 8000); // 10000 milliseconds = 10 seconds
     
     
-        fetch('http://127.0.0.1:2000/grassroots/public_backend', {
-        //fetch('https://grassroots.tools/beta/grassroots/public_backend', {
+        //fetch('http://127.0.0.1:2000/grassroots/public_backend', {
+        fetch('https://grassroots.tools/beta/grassroots/public_backend', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
