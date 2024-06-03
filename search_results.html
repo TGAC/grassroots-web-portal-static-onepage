@@ -214,7 +214,7 @@
         text-overflow: ellipsis !important;
     }
      .description {
-        font-size: 0.8em !important; /* Adjust the size as needed */
+        font-size: 0.9em !important; /* Adjust the size as needed */
         margin-top: 2px !important; /* Add some spacing if needed */
 	 white-space: normal !important; /* Allow normal wrapping */
         overflow: visible !important; /* Allow overflow to be visible */
@@ -395,75 +395,71 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     const description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
                     contentHTML += `${titleLink}<br/>${authorsList}<br/>${description}`;
                 } 
+                else if (category === "Study") {
+                    if (studyItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    studyItemCount++;
+                    const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
+                    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+                    //const description = result.data['so:description'] ? `<br><span style="font-size: 0.9em;">${result.data['so:description']}</span>` : '';
+	                const description = result.data['so:description'] ? `<span class="description">${result.data['so:description']}</span>` : '<span class="description">No description available</span>';
 
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">(${providerName})</span>`;
+                    }
 
+                    contentHTML += `
+                    <div class="study-item">
+                    <span class="title-link">${titleLink}</span>
+                    <span class="provider-name">${providerHTML}</span>
+                    </div>
+	                <div class="description">${description}</div>
+                    `;
 
-else if (category === "Study") {
-    if (studyItemCount > 0) {
-        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
-    }
-    studyItemCount++;
-    const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
-    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
-    //const description = result.data['so:description'] ? `<br><span style="font-size: 0.9em;">${result.data['so:description']}</span>` : '';
-	const description = result.data['so:description'] ? `<span class="description">${result.data['so:description']}</span>` : '<span class="description">No description available</span>';
+	                console.log('Study Item Count:', studyItemCount);
+                    console.log('Study Title Link:', titleLink);
+                    console.log('Study Provider:', providerHTML);
+                    console.log('Generated HTML for Study Item:', contentHTML);
+                }
 
-    let providerHTML = '';
-    if (result.data.provider && result.data.provider['so:name']) {
-        const providerName = result.data.provider['so:name'];
-        providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">(${providerName})</span>`;
-    }
-
-    contentHTML += `
-        <div class="study-item">
-            <span class="title-link">${titleLink}</span>
-            <span class="provider-name">${providerHTML}</span>
-        </div>
-	   <div class="description">${description}</div>
-    `;
-
-	console.log('Study Item Count:', studyItemCount);
-    console.log('Study Title Link:', titleLink);
-    console.log('Study Provider:', providerHTML);
-    console.log('Generated HTML for Study Item:', contentHTML);
-}
-
-
-			else if (category === "Field Trial") {
+			    else if (category === "Field Trial") {
                     const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
                     const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
                     contentHTML = titleLink;
                 } else if (category === "Programme") {
-                    if (programmeItemCount > 0) {
-                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
-                    }
-                    programmeItemCount++;
-                    let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
-                    let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
-                    let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
-                    contentHTML += titleLink;
-                    if (principalInvestigator) {
-                        contentHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
-                    }
-                    contentHTML += result.data['so:description'] ? result.data['so:description'] : '';
-                } else if (category === "Publication") {
-                    if (publicationItemCount > 0) {
-                        //contentHTML += `<hr style="border-top: 1px solid #ccc; margin-top: 10px; margin-bottom: 10px;">`;
-                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+    if (programmeItemCount > 0) {
+        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+    }
+    programmeItemCount++;
+    let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
+    let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
+    let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
+    contentHTML += titleLink;
+    if (principalInvestigator) {
+        contentHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
+    }
+    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
+    contentHTML += description;
+}
+                else if (category === "Publication") {
+                    if (publicationItemCount > 0) {                        
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
                     }
                     publicationItemCount++;
                     let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
                     let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author';
                     let authors = authorsText.replace(/;/g, ',');
                     let title = result.data['so:name'];
-                    //let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
-                    let description = result.data['so:description'] ? `<span style="font-size: 0.8em;">${result.data['so:description']}</span>` : 'No description available';
+                    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
                     if (publicationLink) {
-                        contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
+                    contentHTML += `<br/><a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a><br/>`;
                     } else {
-                        contentHTML += `<i>${title}</i><br/>`;
+                    contentHTML += `<i>${title}</i><br/>`;
                     }
-                    contentHTML += `<i>${authors}</i><br/>${description}<br/>`;
+                    contentHTML += `<i>${authors}</i><br/>${description}<br/>`;                
                 } else if (category === "MARTi Sample") {
                     let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
                     let title = result.data['so:name'];
@@ -488,7 +484,9 @@ else if (category === "Study") {
                     const unitName = result.data.variable['so:name'];
                     const trait = result.data.trait['so:name'];
                     const traitDescription = result.data.trait['so:description'];
-                    contentHTML = `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: ${traitDescription}`;
+                    //contentHTML = `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: ${traitDescription}`;
+                    contentHTML = `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: <div class="description">${traitDescription}</div>`;
+
                 } else {
                     // Default display for other categories
                     contentHTML = result.title;
