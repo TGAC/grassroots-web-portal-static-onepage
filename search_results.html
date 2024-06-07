@@ -185,7 +185,7 @@
    }
 
     
-   .study-item, .programme-item, .publication-item {
+   .study-item, .programme-item, .publication-item, .dataset-item {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
@@ -196,7 +196,7 @@
     border: none !important; /* Remove any borders */
     padding: 0 !important; /* Remove any padding */
 }
-.study-item .title-link, .programme-item .title-link, .publication-item .title-link {
+.study-item .title-link, .programme-item .title-link, .publication-item .title-link, .dataset-item .title-link {
     display: inline-block !important;
     max-width: calc(100% - 200px) !important; /* Adjusted width */
     vertical-align: middle !important;
@@ -204,7 +204,7 @@
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
-.study-item .provider-name, .programme-item .provider-name, .publication-item .provider-name {
+.study-item .provider-name, .programme-item .provider-name, .publication-item .provider-name, .dataset-item .provider-name {
     display: inline-block !important;
     max-width: 280px !important; /* Adjusted width */
     text-align: right !important;
@@ -392,10 +392,25 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     }
                     datasetItemCount++;
                     const titleLink = `<a href="${result.data['so:url']}" target="_blank">${result.data['so:name']}</a>`;
-                    const authorsList = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
-                    const description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
-                    //const description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
-                    contentHTML += `${titleLink}<br/>${authorsList}<br/>${description}`;
+    const authorsList = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
+    const description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
+
+    // Check for the provider information
+    let providerHTML = '';
+    if (result.data.provider && result.data.provider['so:name']) {
+        const providerName = result.data.provider['so:name'];
+        const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+        providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+    }
+
+    contentHTML += `
+        <div class="dataset-item">
+            <span class="title-link">${titleLink}</span>
+            ${providerHTML}
+        </div>
+        ${authorsList}<br/>
+        ${description}
+    `;
                 } 
                 else if (category === "Study") {
                     if (studyItemCount > 0) {
@@ -568,7 +583,7 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
     
     function sendSearchRequest(keyword, category) {
         // Show the spinner
-        document.getElementById('loadingSpinner').style.display = 'block';
+        document.getElementById('loadingSpinner').style.display = 'flex';
     
         const categoryValue = category === "All" ? "<ANY>" : category;
         let hasTimedOut = false; 
