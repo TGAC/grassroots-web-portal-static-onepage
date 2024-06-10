@@ -533,15 +533,33 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
         
                     `;              
                 } else if (category === "MARTi Sample") {
+                    if (martiSampleItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    martiSampleItemCount++;
                     let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
                     let title = result.data['so:name'];
-                    let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
                     let siteName = result.data['site_name'] ? result.data['site_name'] : '';
-                    if (sampleLink) {
-                        contentHTML += `<a style="color:#18bc9c !important;" href="${sampleLink}" target="_blank">${title}</a><br/>`;
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
                     }
-                    contentHTML += `<i>${description}</i><br/>Site: ${siteName}`;
-                } else if (category === "Service") {
+
+                    // Reuse programme-item class for consistency
+                    contentHTML += `
+                    <div class="programme-item">
+                    <span class="title-link">${sampleLink ? `<a style="color:#18bc9c !important;" href="${sampleLink}" target="_blank">${title}</a>` : title}</span>
+                    ${providerHTML}
+                    </div>
+                    <i>${description}</i><br/>Site: ${siteName}
+                    `;
+                }
+                 else if (category === "Service") {
                     let title = result.data['service'] ? result.data['service'] : 'No Title Available';
                     let serviceName = result.data['so:name'] ? result.data['so:name'] : '';
                     let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
