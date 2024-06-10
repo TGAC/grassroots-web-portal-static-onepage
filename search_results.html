@@ -345,7 +345,8 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
       let MeasuredVariableItemCount = 0; 
       let fieldTrialItemCount = 0; // Counter for field trials
       let locationItemCount = 0; // Counter for locations
-      let martiSampleItemCount = 0; 
+      let martiSampleItemCount = 0;
+      let service 
 
       const tabsContainer = document.getElementById('resultsTabs');
       const contentContainer = document.getElementById('tabContent');
@@ -559,17 +560,40 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     <i>${description}</i><br/>Site: ${siteName}
                     `;
                 }
-                 else if (category === "Service") {
+                else if (category === "Service") {
+                    if (serviceItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    serviceItemCount++;
                     let title = result.data['service'] ? result.data['service'] : 'No Title Available';
                     let serviceName = result.data['so:name'] ? result.data['so:name'] : '';
-                    let description = result.data['so:description'] ? result.data['so:description'] : 'No description available';
+                    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
                     let payloadUri = result.data['payload'] ? encodeURIComponent(JSON.stringify(result.data['payload'])) : '';
                     let serviceLink = `https://grassroots.tools/service/payload/${payloadUri}`;
-                    if (payloadUri) {
-                        contentHTML += `<a style="color:#18bc9c !important;" class="newstyle_link" href="${serviceLink}" target="_blank">${title}</a><br/>`;
+    
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
                     }
-                    contentHTML += `<b>${serviceName}</b><br/>${description}<br/>`;
-                } else if (category === "Measured Variable") {
+    
+                    // Reuse programme-item class for consistency
+                    const titleWithProvider = payloadUri ? 
+                    `<a style="color:#18bc9c !important;" class="newstyle_link" href="${serviceLink}" target="_blank">${title}</a>` : 
+                    `<i>${title}</i>`;
+
+                    contentHTML += `
+                    <div class="programme-item">
+                    <span class="title-link">${titleWithProvider}</span>
+                    ${providerHTML}
+                    </div>
+                    <b>${serviceName}</b><br/>
+                    ${description}<br/>
+                    `;
+                }
+                else if (category === "Measured Variable") {
                     if (MeasuredVariableItemCount > 0) {
                         contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
                     }
