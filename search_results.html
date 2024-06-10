@@ -344,6 +344,8 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
       let studyItemCount = 0; // Counter for studies
       let MeasuredVariableItemCount = 0; 
       let fieldTrialItemCount = 0; // Counter for field trials
+      let locationItemCount = 0; // Counter for locations
+      let martiSampleItemCount = 0; 
 
       const tabsContainer = document.getElementById('resultsTabs');
       const contentContainer = document.getElementById('tabContent');
@@ -529,8 +531,7 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     <i>${authors}</i><br/>
                     <div class="description">${description}</div>
         
-                    `;
-              
+                    `;              
                 } else if (category === "MARTi Sample") {
                     let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
                     let title = result.data['so:name'];
@@ -562,7 +563,30 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     //contentHTML = `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: ${traitDescription}`;
                     contentHTML += `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: <div class="description">${traitDescription}</div>`;
 
-                } else {
+                }
+                else if (category === "Location") {
+                    if (locationItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    locationItemCount++;
+                    const title = result.data['so:name'];
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+                    }
+                    // Reuse programme-item class for consistency
+                    contentHTML += `
+                    <div class="programme-item">
+                    <span class="title-link">${title}</span>
+                    ${providerHTML}
+                    </div>
+                    `;
+                }
+                else {
                     // Default display for other categories
                     contentHTML = result.title;
                 }
