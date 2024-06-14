@@ -1,252 +1,340 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Grassroots</title>
+    
+    <!-- Core theme CSS freelancer (includes Bootstrap)-->
+    <link href="/static/fieldtrial/css/styles.css" rel="stylesheet"> 
+    <!-- font awesome -->
+    <link href="/static/fieldtrial/SCRIPTS/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet" type="text/css"/>
+    <!-- jQuery -->
+    <script type="text/javascript" src="/static/fieldtrial/SCRIPTS/jquery/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/static/fieldtrial/SCRIPTS/jquery/jquery-ui.min.js"></script>
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="/static/fieldtrial/SCRIPTS/jquery/jquery-ui.min.css" type="text/css"/>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <!-- **BOOTSTRAP 5.3.2** -->
+    <script src="/static/fieldtrial/SCRIPTS/bootstrap5.3.2/bootstrap.bundle.min.js"></script>     
+    <!-- Core theme JS  freelancer -->
+    <script src="/static/fieldtrial/js/scripts.js"></script> 
+    
+            
+    <!-- grassroots grassroots.css (modified) or site.css (original) -->
+    <link rel="stylesheet" href="/static/fieldtrial/site.css" type="text/css"/>
+    <!--<link href="https://grassroots.tools/css/site.css" rel="stylesheet">  -->
+    <link rel="stylesheet" href="/static/fieldtrial/overrides/style.css" type="text/css"/>
+    
 
-    <title>Grassroots Infrastructure</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- Custom styles for this template -->
-    <link href="css/site.css" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-21666189-16"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', 'UA-21666189-16');
-    </script>
-
+    <style>
+        /* Tabs styling */
+        .tabs {
+           list-style-type: none;
+           padding: 0;
+           margin: 0;
+           display: flex;
+           justify-content: center; /* Center tabs if they don't fill the entire width */
+           flex-wrap: wrap;
+           border-bottom: 2px solid #2C3E50; /* Visual separation */
+       }
+   
+       .tabs li {
+           display: inline-block;
+           margin-right: 10px;
+           padding: 10px 15px;
+           background-color: #2C3E50;
+           color: #fff;
+           cursor: pointer;
+           border-radius: 5px 5px 0 0; /* Rounded corners on the top */
+           transition: background-color 0.3s ease; /* Interaction effect */
+       }
+   
+       .tabs li.active, .tabs li:hover {
+           background-color: #1D2E40; /* Darker on hover/active */
+       }
+   
+       .tabs li a {
+           color: inherit; /* Ensures anchor tags inherit the li color */
+           text-decoration: none; /* No underline */
+       }
+   
+       /* Tab content styling */
+       .tab-content div {
+           display: none; /* Initially hide all content */
+           padding: 20px;
+           border: 1px solid #ddd;
+           background-color: #f9f9f9; /* Light background for readability */
+           margin-top: -1px; /* Align with tabs */
+           text-align: left;
+       }
+   
+       .tab-content div p {
+           color: #2C3E50; /* Text color */
+           text-align: left; 
+       }
+   
+       .tab-content div.active {
+           display: block; /* Show active tab content */
+       }
+   
+       /* Adjustments for smaller screens */
+       @media (max-width: 600px) {
+           .tabs {
+               flex-direction: column; /* Stack tabs vertically on small screens */
+           }
+       }
+   
+       /* Section and explanatory text styling */
+       #header-section .explanatory-text h2, #header-section .explanatory-text p {
+           color: #2C3E50; /* Unified color for header section text */
+           margin-bottom: 20px; /* Space below the text */
+       }
+   
+   
+   .close-button {
+     color: #aaa;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+   }
+   
+   .close-button:hover,
+   .close-button:focus {
+     color: black;
+     text-decoration: none;
+     cursor: pointer;
+   }
+   
+   
+   
+   #header-section .explanatory-text h2 {
+               font-size: 28px; 
+               color: #2C3E50;
+               margin-bottom: 20px;
+           }
+   
+           #header-section .explanatory-text p {
+               font-size: 20px; 
+               color: #2C3E50;
+               margin-bottom: 30px;
+           }
+   
+           .darker {
+       font-size: 18px; /* size of hyperlink text */
+    }
+    
+    #services, #results {
+       padding-top: 0;
+       margin-top: 1;
+   }
+   
+   
+    #search-results {
+           width: 100%; /* Adjust this value as needed */
+           max-width: 1600px; /* Optional: sets a maximum width */
+           margin: 0 auto; /* Centers the box */
+       }
+       #resultsTabs, #tabContent {
+           width: 100%; /* Ensures they take the full width of #search-results */
+       }
+       #loadingSpinner {
+       display: none; /* Initially hidden */
+       justify-content: center; /* Center horizontally */
+       align-items: center; /* Center vertically */
+       position: fixed; /* Or absolute, depending on the use case */
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background-color: rgba(255, 255, 255, 0.5); /* Optional: slight white overlay */
+       z-index: 1000; /* Ensure it's above other content */
+   }
+   
+   .spinner {
+       border: 4px solid rgba(0, 0, 0, 0.1);
+       width: 50px;
+       height: 50px;
+       border-radius: 50%;
+       border-left-color: #09f;
+       animation: spin 1s ease infinite;
+   }
+   
+   @keyframes spin {
+       0% {
+           transform: rotate(0deg);
+       }
+       100% {
+           transform: rotate(360deg);
+       }
+   }
+   
+   .publication-item {
+       padding-bottom: 10px; /* Add some space at the bottom */
+       margin-bottom: 10px; /* Add additional space below the border */
+       border-bottom: 1px solid #ccc; /* Thin, faint grey line */
+   }
+   
+   </style>
 
 </head>
-
-<body id="page-top">
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top" style="text-transform: none ! important;">Grassroots
-            Infrastructure</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-            Menu
-            <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#data">Data</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="docs/">Docs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="dfw">DFW</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="service/search">Search</a>
-                </li>
-            </ul>
-            <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;" src="img/logo-white.png"/>
+<body>
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="/index.html" style="text-transform: none;">Grassroots Infrastructure</a>
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/newdocs/">Docs</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://opendata.earlham.ac.uk/">Data</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="dsw">DSW</a>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;"
+                src="img/logo-white.png"/>
+            </div>
         </div>
-    </div>
-</nav>
-
-<!-- Header -->
+    </nav>
+    
+    <!-- Search Box Section -->
 <header id="header-section" class="masthead"
-        style="background-image: url('img/nature-2571086_1920_40_opac.png');background-position: center; text-align: justify ! important;">
+style="background-image: url('img/nature-2571086_1920_40_opac.png');background-position: center; text-align: justify ! important; padding-top: 0;">
     <div class="container">
-        <div class="intro-text" style="color: #2C3E50 ! important;">
-            <span class="skills">The Grassroots Infrastructure project aims to create an easily-deployable suite of computing middleware tools to help users and developers gain access to scientific data infrastructure that can easily be interconnected.</span>
-            <p class="intro-text">With the data-generative approaches that are increasingly common in modern life
-                science research, it is
-                vital
-                that the data and metadata produced by these efforts can be shared and reused. The Grassroots
-                Infrastructure
-                project wraps up industry-standard software tools with a consistent API that can be federated on a
-                number of
-                levels. This means institutions and groups can deploy a simple lightweight virtual machine, expose local
-                data, connect up any existing data services, and federate their instance of the Grassroots with others
-                out-of-the-box.</p>
+        <section id="search" style="padding-top: 140px;  padding-bottom: 5px;">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                         
+                        <div class="explanatory-text" style="margin-bottom: 20px;">
+                            
+                            <p  style="color: #2C3E50; font-weight: bold;">Grassroots is a data sharing platform for the wheat community. Use the search box below to find resources, or scroll down to read more about the project.</p>
+                        
 
-            <p class="intro-text">The Grassroots Infrastructure uses a controlled vocabulary of JSON messages to
-                communicate, so any server
-                or
-                client that can understand JSON can be used to access and connect to the platform. We provide
-                infrastructure
-                to ensure that the scientific data remains the important factor, and not the worry about how to build a
-                system to expose your data.</p>
-        </div>
+                        <!-- Search Box -->
+                        <div class="search-box" style="border: 2px solid #2C3E50; padding: 20px; border-radius: 5px; background-color: rgba(255, 255, 255, 0.9); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <!-- Search box title and subtitle -->
+                            <div class="search-box-title" style="text-align: left; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2C3E50;">Grassroots Search</h4>
+                                <p style="margin: 0; color: #2C3E50; font-size: 14px;">Explore our system</p>
+                            </div>
+                            <!-- Search fields -->
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Enter search keyword...">
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="categorySelect" class="form-control">
+                                        <option value="All">All</option>
+                                        <option value="Dataset">Dataset</option>
+                                        <option value="Service">Service</option>
+                                        <option value="Field Trial">Field Trial</option>
+                                        <option value="Study">Study</option>
+                                        <option value="Location">Location</option>
+                                        <option value="MARTi Sample">MARTi Sample</option>
+                                        <option value="Programme">Programme</option>
+                                        <option value="Publication">Publication</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button onclick="sendSearchRequest()" class="btn btn-primary btn-xl js-scroll-trigger" style="margin-top: 10px; background-color: #2C3E50; border: none;">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </header>
 
-<!-- Portfolio Grid Section -->
-<section class="success" id="services">
-    <div class="container">
-        <h2 class="text-center">Services</h2>
-        <hr class="star-light">
-        <p style="text-align: justify;">The Grassroots Infrastructure has been developed to expose a number of important
-            and powerful technologies
-            that can benefit
-            researchers and developers to realise their data management needs.</p>
 
-        <p>Existing services:</p>
+<script>
+    function sendSearchRequest() {
+        var keyword = document.getElementById('searchInput').value.trim(); // Trim to remove any leading/trailing white spaces
+        var category = document.getElementById('categorySelect').value;
 
-        <ul>
-            <li><a class="darker" href="service/search" target="_blank">Search Grassroots</a></li>
-            <li><a class="darker" href="fieldtrial" target="_blank">Field Trials</a></li>
-            <li><a class="darker" href="docs/user/services/field_trial/" target="_blank">Submitting Field Trials</a></li>
-            <li><a class="darker" href="service/blast-blastn" target="_blank">Blast searches</a>
-            </li>
-            <li><a class="darker" href="https://opendata.earlham.ac.uk/wheat/under_license/toronto/" target="_blank">Grassroots Data Portal</a></li>
-            <li><a class="darker" href="yellowrust-map/" target="_blank">Yellow Rust Field Pathogenomics</a></li>
-            <li><a class="darker" href="service/" target="_blank">List of all public services</a></li>
-        </ul>
-    </div>
-</section>
+        if (keyword === "") {
+            // Display an alert or message on the page that a search term is required.
+            alert("Please enter a search term.");
+        } else {
+            // Construct the URL for results.html with query parameters for keyword and category
+            var resultsUrl = `search_results.html?keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(category)}`;
 
-<!-- Portfolio Grid Section -->
-<section id="data">
-    <div class="container">
-        <h2 class="text-center">Data</h2>
-        <hr class="star-primary">
-        <p style="text-align: justify;">As well as providing services, the Grassroots infrastructure also has the
-            ability to host data. Building upon <a href="https://irods.org/" target="_blank">iRODS</a> as a data management solution, we have added a number of features
-            such as a search service and a fully featured web interface, using <a href="https://github.com/billyfish/eirods-dav">mod_eirods_dav</a>, for accessing the data
-            and metadata. Currently it is used to host the <a href="https://opendata.earlham.ac.uk/wheat">Designing Future Wheat Data Portal</a>.</p>
-
-    </div>
-</section>
-
-<!-- About Section -->
-<section class="success" id="about">
-    <div class="container">
-        <h2 class="text-center">About</h2>
-        <hr class="star-light">
-        <h3>Designing Future Wheat:</h3>
-        <p style="text-align: justify;">Grassroots has traditionally been the result of an effort to produce an
-            interoperable data sharing platform
-            for the wheat community. Whilst Grassroots is by no means organism-specific, our main use cases come from
-            the wheat community. We get most of our community feedback from plant researchers at the Earlham Institute, John Innes Centre, Bristol
-            University, Rothamsted Research and other UK institutions, as well as from various international wheat working groups such as
-            the <a class="darker" href="https://www.rd-alliance.org/groups/wheat-data-interoperability-wg.html"
-                   target="_blank">RDA Wheat Data
-                Interoperability maintenance group</a> and the <a class="darker"
-                                                                  href="http://www.wheatinitiative.org/activities/expert-working-groups/wheat-information-system"
-                                                                  target="_blank">Wheat
-                Initiative Wheat Information
-                System expert working group</a>. The newly awarded cross-institute programme grant, Delivering Sustainable Wheat (DSW) and its predecessor
-            Designing Future Wheat (DFW), are flagship projects to bring the UK’s wheat researchers
-            together to deliver new varieties relevant to the international stage, through the coordinated effort of
-            biologists, breeders, and informaticians. As such, Grassroots is funded by the DSW programme, enabling us to
-            build a platform that can meet the needs of not only this ambitious programme, but the wider UK and
-            international wheat community that needs fast and openly-licenced unfettered access to the data and
-            experimental information arising from DFW.</p>
-
-        <h3>How to cite us:</h3>
-        <p style="text-align: justify;">If you have used any of the services that Grassroots provides in your own
-            research, we would very much
-            appreciate that you let us know and cite us in any publications, as follows:</p>
-
-        <p>Bian. X, Tyrrell. S, Olvera. D, Davey R.P. <i>The Grassroots life science data infrastructure (2017).</i>
-            https://grassroots.tools</p>
-
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact">
-    <div class="container">
-        <h2 class="text-center">Contact us</h2>
-        <hr class="star-primary">
-        <p>If you have any queries, please email the <a href="mailto:grasshelpdesk@earlham.ac.uk">Grassroots
-            Helpdesk</a></p>
-        <div class="row">
-            <div class="col-sm-4 portfolio-item mx-auto">
-                <a class="portfolio-link" href="#simon" data-toggle="modal">
-                    <div class="caption">
-                        <div class="caption-content">
-                            <i class="fa fa-search-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="img/simon-tyrrell-web.jpg" alt="">
-                </a>
-            </div>
-            <div class="col-sm-4 portfolio-item mx-auto">
-                <a class="portfolio-link" href="#daniel" data-toggle="modal">
-                    <div class="caption">
-                        <div class="caption-content">
-                            <i class="fa fa-search-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="img/daniel-olvera-web-profile2023.jpg" alt="">
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- Contact Section -->
-<section id="funding" class="success">
-    <div class="container">
-        <h2 class="text-center">Funding</h2>
-        <hr class="star-light">
-        <p>
-                            The author(s) acknowledge the support of the Biotechnology and Biological Sciences Research Council (BBSRC), part of UK Research and Innovation; this research was funded by the BBSRC Designing Future Wheat grant BB/P016855/1 and its constituent work packages(BBS/E/T/000PR9783 (DFW WP4 Data Access and Analysis) BBS/E/T/000PR9784 (DFW WP2 Added value and resilience) BBS/E/T/000PR9785 (DFW WP1 Increased efficiency and sustainability), Cross Institute Strategic Programme Grant Delivering Sustainable Wheat BBX011003/1 and its constituent work packages BBS/E/ER/230003A (DSW WP1 Targeted Sustainability-Trait Discovery), BBS/E/ER/230003B (DSW WP2 Delivering Resilience to Biotic Stress), BBS/E/ER/230003C (DSW WP4 Sustainable Data Frameworks for Wheat) and Core Capability Grants BB/CCG1720/1 and BB/CCG2220/1 and the work delivered via the BBSRC National Capability in e‐Infrastructure (BBS/E/T/000PR9814) at the Earlham Institute by members of the e‐Infrastructure group.
-        
-        </p>
-    </div>
-</section>
-
-
-<!-- Footer -->
+            // Redirect the browser to the results page
+            window.location.href = resultsUrl;
+        }
+    }
+</script>
+    
+    <!--footer-->
 <footer class="text-center">
     <div class="footer-above">
         <div class="container">
             <div class="row">
-                <div class="footer-col col-md-6" style="text-align: left ! important;">
-                    <h3>Earlham Institute</h3>
+                <div class="footer-col col-md-12" style="text-align: left !important;">
+                    <h5 style="text-align: center;">Funding</h5>
+                    <p style="text-align: justify; font-size: 1.12em;">The author(s) acknowledge the support of the Biotechnology and Biological Sciences Research Council (BBSRC), 
+                        part of UK Research and Innovation; this research was funded by the BBSRC 
+                        Designing Future Wheat grant BB/P016855/1 and its constituent work packages(BBS/E/T/000PR9783 
+                        (DFW WP4 Data Access and Analysis) BBS/E/T/000PR9784 (DFW WP2 Added value and resilience) BBS/E/T/000PR9785 (DFW WP1 Increased efficiency and sustainability), 
+                        Cross Institute Strategic Programme Grant Delivering Sustainable Wheat BBX011003/1 and its 
+                        constituent work packages BBS/E/ER/230003A (DSW WP1 Targeted Sustainability-Trait Discovery),
+                         BBS/E/ER/230003B (DSW WP2 Delivering Resilience to Biotic Stress), 
+                         BBS/E/ER/230003C (DSW WP4 Sustainable Data Frameworks for Wheat) and 
+                         Core Capability Grants BB/CCG1720/1 and BB/CCG2220/1 and the work delivered via the
+                          BBSRC National Capability in e‐Infrastructure (BBS/E/T/000PR9814) 
+                        at the Earlham Institute by members of the e‐Infrastructure group.</p>
+                </div>
+            </div>
+            <!-- First Row for Earlham Institute and Project Code -->
+            <div class="row">
+                <div class="footer-col col-md-6" style="text-align: left !important;">
+                    <h5>Earlham Institute</h5>
                     <p>Norwich Research Park<br/>
                         Norwich<br/>
                         NR4 7UZ<br/>
                         UK</p>
                 </div>
                 <div class="footer-col col-md-6">
-                    <h3>Project Code</h3>
+                    <h5>Project Code</h5>
                     <p>The project is fully open source and the source code is available on <a
                             href="https://github.com/TGAC?q=grassroots" target="_blank">GitHub</a>:</p>
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <a class="btn-social btn-outline" href="https://github.com/TGAC?q=grassroots"
                                target="_blank">
-                                <i class="fa fa-fw fa-github"></i>
+                                <i class="fab fa-fw fa-github"></i>
                             </a>
                         </li>
-                        <!--<li class="list-inline-item">-->
-                        <!--<a class="btn-social btn-outline" href="#">-->
-                        <!--<i class="fa fa-fw fa-twitter"></i>-->
-                        <!--</a>-->
-                        <!--</li>-->
+                        <!-- Example of additional social media. Uncomment and modify as needed.
+                        <li class="list-inline-item">
+                            <a class="btn-social btn-outline" href="#">
+                                <i class="fa fa-fw fa-twitter"></i>
+                            </a>
+                        </li>
+                        -->
                     </ul>
                 </div>
             </div>
@@ -256,182 +344,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    &copy; 2017 - 2024 Brought to you by <a href="https://www.earlham.ac.uk/" target="_blank">Earlham
-                    Institute</a>, powered by <a href="https://cyverseuk.org" target="_blank">CyVerse UK</a>
+                    &copy; 2017 - 2024 Brought to you by <a href="http://www.earlham.ac.uk/" target="_blank">Earlham
+                    Institute</a>
                 </div>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-<div class="scroll-top d-lg-none">
-    <a class="btn btn-primary js-scroll-trigger" href="#page-top">
-        <i class="fa fa-chevron-up"></i>
-    </a>
-</div>
+    <!-- Additional scripts if any -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Define the extra string to add to the base URL
+        const extraString = "test"; // BETA or TEST
 
-<div class="portfolio-modal modal fade" id="rob" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl"></div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <div class="modal-body">
-                            <h2>Robert Davey</h2>
-                            <hr class="star-primary">
-                            <img class="img-fluid img-centered" src="img/rob-davey-web.jpg" alt="">
-                            <p>Earlham Institute</p>
-                            <p style="text-align: left ! important;">Rob leads the <a
-                                    href="http://www.earlham.ac.uk/davey-group">Data Infrastructure
-                                group</a> at the Earlham Institute and is the PI for the
-                                Grassroots project. He has a PhD in Computer Science from the University of East Anglia,
-                                undertaken at the Roberts lab in the <a href="http://www.ncyc.co.uk" target="_blank">National
-                                    Collection
-                                    of Yeast Cultures</a>. Rob leads a
-                                number of large computing infrastructure development and deployment projects, is a
-                                certified <a href="https://software-carpentry.org" target="_blank">Software
-                                    Carpentry</a> Instructor and
-                                Trainer, an editorial board member for
-                                Nature Scientific Data, and a <a href="https://www.software.ac.uk">Software
-                                    Sustainability Institute</a> Fellow.</p>
-                            <a href="https://orcid.org/0000-0002-5589-7754" target="orcid.widget"
-                               rel="noopener noreferrer" style="vertical-align:top;"><img
-                                    src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
-                                    style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0002-5589-7754</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+        // Get all the navigation links in the navbar
+        const navLinks = document.querySelectorAll('#mainNav .nav-link');
 
-<div class="portfolio-modal modal fade" id="xingdong" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl"></div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <div class="modal-body">
-                            <h2>Xingdong Bian</h2>
-                            <hr class="star-primary">
-                            <img class="img-fluid img-centered" src="img/xingdong-bian-web.jpg" alt="">
-                            <p>Research Software Engineer, Earlham Institute</p>
-                            <p style="text-align: left ! important;">Xingdong is a member of the Data Infrastructure
-                                group, he joined the Earlham Institute in
-                                January 2010 and was involved in the development of EI's Laboratory Information
-                                Management System (MISO) and the TGAC Browser. He has worked on solutions for data
-                                visualisation, managing servers, genomic databases and bioinformatics tools. Xingdong is
-                                now working mainly on the Grassroots project as a research software engineer. He has a
-                                BSc in Computer Science from the University of Sheffield and a MSc in Software
-                                Engineering from the University of York.</p>
-                            <a href="https://orcid.org/0000-0002-4719-3220" target="orcid.widget"
-                               rel="noopener noreferrer" style="vertical-align:top;"><img
-                                    src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
-                                    style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0002-4719-3220</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="portfolio-modal modal fade" id="simon" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl"></div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <div class="modal-body">
-                            <h2>Simon Tyrrell</h2>
-                            <hr class="star-primary">
-                            <img class="img-fluid img-centered" src="img/simon-tyrrell-web.jpg" alt="">
-                            <p>Research Software Engineer, Earlham Institute</p>
-                            <p style="text-align: left ! important;">Simon is a research software engineer and a member
-                                of the Data Infrastructure group,
-                                joining the Earlham Institute in June 2014. He has a PhD in Cheminformatics from the
-                                University of Sheffield. He has worked on a variety of molecular modelling, data mining
-                                and visualisation projects in different scientific disciplines.
-                            </p>
-                            <a href="https://orcid.org/0000-0002-7789-6875" target="orcid.widget"
-                               rel="noopener noreferrer" style="vertical-align:top;"><img
-                                    src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
-                                    style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0002-7789-6875</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="portfolio-modal modal fade" id="daniel" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl"></div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <div class="modal-body">
-                            <h2>Daniel Olvera</h2>
-                            <hr class="star-primary">
-                            <img class="img-fluid img-centered" src="img/daniel-olvera-web-profile.jpg".jpg" alt="">
-                            <p>Research Software Engineer, Earlham Institute</p>
-                            <p style="text-align: left ! important;">Daniel is a research software engineer and a member
-                                of the Data Infrastructure group,
-                                joining the Earlham Institute in 2022. He obtained his PhD from the School of 
-				Mathematics at the University of Bristol, working on turbulence and optimization techniques. 
-				He continued working in fluid mechanics at Coventry University and
-				later moved to Barcelona as a postdoctoral researcher working at the 
-				Catalan Institute of Nanoscience and Nanotechnology. He is interested in 
-				code development, numerical simulations, optimisation, high performance computing 
-				and data visualisation.
-                            </p>
-                            <a href="https://orcid.org/0000-0002-7935-9715" target="orcid.widget"
-                               rel="noopener noreferrer" style="vertical-align:top;"><img
-                                    src="https://orcid.org/sites/default/files/images/orcid_16x16.png"
-                                    style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0002-7935-9715</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/popper/popper.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for this template -->
-<script src="js/site.js"></script>
-
+        // Iterate over each link and update the href attribute
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            // Check if the href is a relative URL
+            if (href && !href.startsWith('http')) {
+                link.setAttribute('href', `/${extraString}/${href}`);
+            }
+        });
+    });
+   </script>
+        
 </body>
-
 </html>
