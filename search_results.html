@@ -238,7 +238,7 @@
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/index.html">Services</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/docs/">Docs</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/newdocs/">Docs</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/#data">Data</a>
@@ -247,7 +247,7 @@
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/index.html#about">About</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_self" href="dsw">DSW</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="dsw">DSW</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="contact.html">Contact</a>
@@ -741,7 +741,14 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
     }
     
     function displayError() {
-        document.getElementById('search-results').innerHTML = `<p>There was an error processing your search. Please try again.</p>`;
+    document.getElementById('loadingSpinner').style.display = 'none'; // Hide the spinner
+    document.getElementById('search-results').innerHTML = `<p>There was an error processing your search. Please try again.</p>`;
+    resetPageState(); // Reset the page state after error
+    }
+
+    function resetPageState() {
+    document.getElementById('loadingSpinner').style.display = 'none';
+    // Additional reset actions if needed (e.g., background color, disabling inputs)
     }
     </script>
 
