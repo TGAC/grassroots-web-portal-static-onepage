@@ -34,53 +34,42 @@
 
 
     <style>
-        /* General text styling for the header section */
-        #header-section .intro-text {
-            color: #2C3E50 !important; /* Darker text color for better contrast */
-        }
-        #header-section .intro-text p {
-            color: #2C3E50 !important; /* Darker text color for better contrast */
-            font-weight: bold !important; /* Bold text */
-            font-size: 1.2em !important; /* Ensure paragraph text retains its size */
-        }
-        #header-section .skills {
-            display: block;
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold !important; /* Make the title bold */
-            margin-bottom: 10px;
-            color: #2C3E50 !important; /* Ensure title has the same color */
-        }
+    #header-section .intro-text {
+        color: #2C3E50 !important; /* Darker text color for better contrast */
+    }
+    #header-section .intro-text p {
+        color: #2C3E50 !important; /* Darker text color for better contrast */
+        font-weight: bold !important; /* Bold text */
+        font-size: 1.2em !important; /* Ensure paragraph text retains its size */
+    }
+    #header-section .skills {
+        display: block;
+        text-align: center;
+        font-size: 2em;
+        font-weight: bold !important; /* Make the title bold */
+        margin-bottom: 10px;
+        color: #2C3E50 !important; /* Ensure title has the same color */
+    }
+
+    /* Adjust list items to match paragraph text style without affecting paragraph size */
+    #header-section ul li {
+        font-size: 1.2em; /* Match paragraph font size */
+        color: #2C3E50; /* Match the color with the paragraph text */
+        line-height: 1.5; /* Optional: for better readability */
+        font-weight: bold !important; /* Match paragraph font weight */
+    }
     
-        /* Adjust list items to match paragraph text style without affecting paragraph size */
-        #header-section ul li {
-            font-size: 1.2em !important; /* Match paragraph font size */
-            color: #2C3E50 !important; /* Match the color with the paragraph text */
-            line-height: 1.5 !important; /* Optional: for better readability */
-            font-weight: bold !important; /* Match paragraph font weight */
-        }
+    /* Ensure anchor tags within list items also match the style */
+    #header-section ul li a {
+        color: #2C3E50;
+        text-decoration: underline; 
+    }
     
-        /* Ensure anchor tags within list items also match the style */
-        #header-section ul li a {
-            color: #2C3E50 !important; /* Ensure hyperlinks have the same color */
-            text-decoration: underline !important; /* Underline text to indicate hyperlinks */
-        }
-    
-        #header-section ul li a:hover {
-            text-decoration: underline !important; /* Keep underline on hover for clarity */
-        }
-    
-        /* Ensure anchor tags within paragraphs also match the style */
-        #header-section .intro-text p a {
-            color: #2C3E50 !important; /* Ensure hyperlinks have the same color */
-            text-decoration: underline !important; /* Underline text to indicate hyperlinks */
-        }
-    
-        #header-section .intro-text p a:hover {
-            text-decoration: underline !important; /* Keep underline on hover for clarity */
-        }
-    </style>
-    
+    #header-section ul li a:hover {
+        text-decoration: underline; /* Underline on hover for clarity */
+    }
+</style>
+
     
 
 </head>
@@ -95,7 +84,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="../services.html">Services</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_self" href="services.html">Services</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/newdocs/">Docs</a>
@@ -104,13 +93,13 @@
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://opendata.earlham.ac.uk/">Data</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="../about.html">About</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="about.html">About</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_self" href="./">DSW</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_self" href="dsw">DSW</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="../contact.html">Contact</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="contact.html">Contact</a>
                     </li>
                 </ul>
                 <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;"
@@ -119,28 +108,31 @@
         </div>
     </nav>
     
-    <!-- Page Content for new DSW -->
+    <!-- Page Content -->
     <!-- Header -->
     <header id="header-section" class="masthead" style="background-image: url('../img/wheat_40_opac_gimp.png');background-position: center; text-align: justify !important;">
         <div class="container">
             <div class="intro-text">
-                <span class="skills">Delivering Sustainable Wheat</span>
-                <p>The Delivering Sustainable Wheat (DSW) Institute Strategic Programme (ISP), 
-                    a BBSRC-funded collaborative effort involving ten leading research institutes and universities in the UK.
-                     Our goal is to develop new wheat germplasm that contains the next generation of key traits to address 
-                     the challenges faced by the global wheat industry. Together, we are committed to developing sustainable 
-                     solutions to the challenges faced by the global wheat industry.</p>
-    
-                <p>Wheat is an essential crop globally and is a staple in the UK and Western Europe. 
-                    With a projected population of 10 billion by 2050, the need for sustainable wheat production is urgent. 
-                    However, the current production of wheat is fragile. The majority of the world's supply comes from just 
-                    five countries and climate change, new diseases, and declining water resources pose significant challenges
-                     for farmers.</p>
-
-                <p>Through DSW, we aim to provide new germplasm that is readily accessible and referenced to
-                     commercial crop breeders and the plant science community. 
-                     This will help accelerate the development of new wheat varieties that are more resilient and 
-                     productive, and able to meet the growing global demand for this important crop.</p>     
+                
+                <p>
+                    The Grassroots Infrastructure project aims to create an easily-deployable suite of computing middleware tools to help users and developers gain access to scientific data infrastructure that can easily be interconnected.</p>
+                    
+                <p> With the data-generative approaches that are increasingly common in modern life science research, it is vital that the data and metadata produced by these efforts can be shared and reused. The Grassroots Infrastructure project wraps up industry-standard software tools with a consistent API that can be federated on a number of levels. This means institutions and groups can deploy a simple lightweight virtual machine, expose local data, connect up any existing data services, and federate their instance of the Grassroots with others out-of-the-box.</p>
+                    
+                <p>The Grassroots Infrastructure uses a controlled vocabulary of JSON messages to communicate, so any server or client that can understand JSON can be used to access and connect to the platform. We provide infrastructure to ensure that the scientific data remains the important factor, and not the worry about how to build a system to expose your data.</p>
+                <span class="skills">Services</span>
+                <p>
+                <ul>
+                    <li><a  href="service/search" target="_blank">Search Grassroots</a></li>
+                    <li><a class="darker" href="fieldtrial" target="_blank">Field Trials</a></li>
+                    <li><a class="darker" href="docs/user/services/field_trial/" target="_blank">Submitting Field Trials</a></li>
+                    <li><a class="darker" href="service/blast-blastn" target="_blank">Blast searches</a>
+                    </li>
+                    <li><a class="darker" href="https://opendata.earlham.ac.uk/wheat/under_license/toronto/" target="_blank">Grassroots Data Portal</a></li>
+                    <li><a class="darker" href="yellowrust-map/" target="_blank">Yellow Rust Field Pathogenomics</a></li>
+                    <li><a class="darker" href="service/" target="_blank">List of all public services</a></li>
+                </ul>
+                </p>
             </div>
         </div>
     </header>

@@ -34,7 +34,6 @@
 
 
     <style>
-        /* General text styling for the header section */
         #header-section .intro-text {
             color: #2C3E50 !important; /* Darker text color for better contrast */
         }
@@ -54,33 +53,32 @@
     
         /* Adjust list items to match paragraph text style without affecting paragraph size */
         #header-section ul li {
-            font-size: 1.2em !important; /* Match paragraph font size */
-            color: #2C3E50 !important; /* Match the color with the paragraph text */
-            line-height: 1.5 !important; /* Optional: for better readability */
+            font-size: 1.2em; /* Match paragraph font size */
+            color: #2C3E50; /* Match the color with the paragraph text */
+            line-height: 1.5; /* Optional: for better readability */
             font-weight: bold !important; /* Match paragraph font weight */
         }
-    
+        
         /* Ensure anchor tags within list items also match the style */
         #header-section ul li a {
             color: #2C3E50 !important; /* Ensure hyperlinks have the same color */
-            text-decoration: underline !important; /* Underline text to indicate hyperlinks */
+            text-decoration: underline; 
         }
-    
+        
         #header-section ul li a:hover {
-            text-decoration: underline !important; /* Keep underline on hover for clarity */
+            text-decoration: underline; /* Underline on hover for clarity */
         }
-    
+        
         /* Ensure anchor tags within paragraphs also match the style */
         #header-section .intro-text p a {
             color: #2C3E50 !important; /* Ensure hyperlinks have the same color */
-            text-decoration: underline !important; /* Underline text to indicate hyperlinks */
+            text-decoration: underline; /* Underline text to indicate hyperlinks */
         }
     
         #header-section .intro-text p a:hover {
-            text-decoration: underline !important; /* Keep underline on hover for clarity */
+            text-decoration: underline; /* Keep underline on hover for clarity */
         }
     </style>
-    
     
 
 </head>
@@ -95,7 +93,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="../services.html">Services</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="services.html">Services</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/newdocs/">Docs</a>
@@ -104,13 +102,13 @@
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://opendata.earlham.ac.uk/">Data</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="../about.html">About</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="self" href="about.html">About</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_self" href="./">DSW</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="dsw">DSW</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="../contact.html">Contact</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="contact.html">Contact</a>
                     </li>
                 </ul>
                 <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;"
@@ -125,22 +123,32 @@
         <div class="container">
             <div class="intro-text">
                 <span class="skills">Delivering Sustainable Wheat</span>
-                <p>The Delivering Sustainable Wheat (DSW) Institute Strategic Programme (ISP), 
-                    a BBSRC-funded collaborative effort involving ten leading research institutes and universities in the UK.
-                     Our goal is to develop new wheat germplasm that contains the next generation of key traits to address 
-                     the challenges faced by the global wheat industry. Together, we are committed to developing sustainable 
-                     solutions to the challenges faced by the global wheat industry.</p>
-    
-                <p>Wheat is an essential crop globally and is a staple in the UK and Western Europe. 
-                    With a projected population of 10 billion by 2050, the need for sustainable wheat production is urgent. 
-                    However, the current production of wheat is fragile. The majority of the world's supply comes from just 
-                    five countries and climate change, new diseases, and declining water resources pose significant challenges
-                     for farmers.</p>
-
-                <p>Through DSW, we aim to provide new germplasm that is readily accessible and referenced to
-                     commercial crop breeders and the plant science community. 
-                     This will help accelerate the development of new wheat varieties that are more resilient and 
-                     productive, and able to meet the growing global demand for this important crop.</p>     
+                <p>Grassroots has traditionally been the result of an effort to produce an
+                    interoperable data sharing platform
+                    for the wheat community. Whilst Grassroots is by no means organism-specific, our main use cases come from
+                    the wheat community. We get most of our community feedback from plant researchers at the Earlham Institute, John Innes Centre, Bristol
+                    University, Rothamsted Research and other UK institutions, as well as from various international wheat working groups such as
+                    the <a  href="https://www.rd-alliance.org/groups/wheat-data-interoperability-wg.html"
+                           target="_blank">RDA Wheat Data
+                        Interoperability maintenance group</a> 
+                        and the <a href="http://www.wheatinitiative.org/activities/expert-working-groups/wheat-information-system"
+                                                                          target="_blank">Wheat
+                        Initiative Wheat Information
+                        System expert working group</a>. The newly awarded cross-institute programme grant, Delivering Sustainable Wheat (DSW) and its predecessor
+                    Designing Future Wheat (DFW), are flagship projects to bring the UK’s wheat researchers
+                    together to deliver new varieties relevant to the international stage, through the coordinated effort of
+                    biologists, breeders, and informaticians. As such, Grassroots is funded by the DSW programme, enabling us to
+                    build a platform that can meet the needs of not only this ambitious programme, but the wider UK and
+                    international wheat community that needs fast and openly-licenced unfettered access to the data and
+                    experimental information arising from DFW.</p>
+        
+                <h3>How to cite us:</h3>
+                <p style="text-align: justify;">If you have used any of the services that Grassroots provides in your own
+                    research, we would very much
+                    appreciate that you let us know and cite us in any publications, as follows:</p>
+        
+                <p>Bian. X, Tyrrell. S, Olvera. D, Davey R.P. <i>The Grassroots life science data infrastructure (2017).</i>
+                    https://grassroots.tools</p>
             </div>
         </div>
     </header>
