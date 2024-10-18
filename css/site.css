@@ -613,3 +613,8 @@ table.resources td{
     test-align: center;
     vertical-align: center;
 }
+
+
+.resultsTabs a.active {
+  font-weight: bold;
+}
