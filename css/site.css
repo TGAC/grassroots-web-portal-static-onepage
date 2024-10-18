@@ -615,6 +615,6 @@ table.resources td{
 }
 
 
-.resultsTabs a.active {
+#resultsTabs a.active {
   font-weight: bold;
 }
