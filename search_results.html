@@ -9,6 +9,9 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Grassroots</title>
+
+    <script src="/static/scripts/config.js"></script> 
+
     
     <!-- Core theme CSS freelancer (includes Bootstrap)-->
     <link href="/static/fieldtrial/css/styles.css" rel="stylesheet"> 
@@ -32,8 +35,7 @@
     <!-- grassroots grassroots.css (modified) or site.css (original) -->
     <link rel="stylesheet" href="/static/fieldtrial/site.css" type="text/css"/>
     <!--<link href="https://grassroots.tools/css/site.css" rel="stylesheet">  -->
-    <link rel="stylesheet" href="/static/fieldtrial/overrides/style.css" type="text/css"/>
-    
+    <link rel="stylesheet" href="/static/fieldtrial/overrides/style.css" type="text/css"/>    
 
 
     <style>
@@ -355,6 +357,10 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
       tabsContainer.innerHTML = '';
       contentContainer.innerHTML = '';
 
+			console.log ("**** BEGIN RESULTS ****")
+			console.log (data.results);
+			console.log ("**** END RESULTS ****")
+
       if (data.results && data.results[0].metadata.total_hits > 0) {
         const categoriesResults = {}; // Holds the results categorized by their type
 
@@ -421,7 +427,7 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
                     }
                     studyItemCount++;
-                    const studyLink = `https://grassroots.tools/fieldtrial/study/${result.data.id}`;
+                    const studyLink = server_django_url + `/fieldtrial/study/${result.data.id}`;
                     const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
                     //const description = result.data['so:description'] ? `<br><span style="font-size: 0.9em;">${result.data['so:description']}</span>` : '';
 	                const description = result.data['so:description'] ? `<span class="description">${result.data['so:description']}</span>` : '<span class="description">No description available</span>';
@@ -452,8 +458,10 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
                     } 
                     fieldTrialItemCount++; 
-                    const studyLink = `https://grassroots.tools/fieldtrial/${result.data.id}`;
-                    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+
+
+                    const trialLink = server_django_url + `/fieldtrial/trial/${result.data.id}`;
+                    const titleLink = `<a href="${trialLink}" target="_blank">${result.data['so:name']}</a>`;
 
                     // Check for the provider information
                     let providerHTML = '';
@@ -569,7 +577,7 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
                     let serviceName = result.data['so:name'] ? result.data['so:name'] : '';
                     let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
                     let payloadUri = result.data['payload'] ? encodeURIComponent(JSON.stringify(result.data['payload'])) : '';
-                    let serviceLink = `https://grassroots.tools/service/payload/${payloadUri}`;
+                    let serviceLink = `${server_django_url}/service/payload/${payloadUri}`;
     
                     // Check for the provider information
                     let providerHTML = '';
@@ -696,8 +704,10 @@ style="background-image: url('img/nature-2571086_1920_40_opac.png');background-p
         }, 8000); // 10000 milliseconds = 10 seconds
     
     
-        //fetch('http://127.0.0.1:2000/grassroots/public_backend', {
-        fetch('https://grassroots.tools/newbeta/grassroots/public_backend', {
+				console.log ("server_backend_url: " + server_backend_url);
+
+        fetch(server_backend_url + "/public_backend", {
+        //fetch('https://grassroots.tools/grassroots/public_backend', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
