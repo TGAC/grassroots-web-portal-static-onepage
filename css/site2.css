@@ -1,0 +1,247 @@
+        /* Tabs styling */
+        .tabs {
+           list-style-type: none;
+           padding: 0;
+           margin: 0;
+           display: flex;
+           justify-content: center; /* Center tabs if they don't fill the entire width */
+           flex-wrap: wrap;
+           border-bottom: 2px solid #2C3E50; /* Visual separation */
+       }
+   
+       .tabs li {
+           display: inline-block;
+           margin-right: 10px;
+           padding: 10px 15px;
+           background-color: #2C3E50;
+           color: #fff;
+           cursor: pointer;
+           border-radius: 5px 5px 0 0; /* Rounded corners on the top */
+           transition: background-color 0.3s ease; /* Interaction effect */
+       }
+   
+       .tabs li.active, .tabs li:hover {
+           background-color: #1D2E40; /* Darker on hover/active */
+       }
+   
+       .tabs li a {
+           color: inherit; /* Ensures anchor tags inherit the li color */
+           text-decoration: none; /* No underline */
+       }
+   
+       /* Tab content styling */
+       .tab-content div {
+           display: none; /* Initially hide all content */
+           padding: 20px;
+           border: 1px solid #ddd;
+           background-color: #f9f9f9; /* Light background for readability */
+           margin-top: -1px; /* Align with tabs */
+           text-align: left;
+       }
+   
+       .tab-content div p {
+           color: #2C3E50; /* Text color */
+           text-align: left; 
+       }
+   
+       .tab-content div.active {
+           display: block; /* Show active tab content */
+       }
+   
+       /* Adjustments for smaller screens */
+       @media (max-width: 600px) {
+           .tabs {
+               flex-direction: column; /* Stack tabs vertically on small screens */
+           }
+       }
+   
+       /* Section and explanatory text styling */
+       #header-section .explanatory-text h2, #header-section .explanatory-text p {
+           color: #2C3E50; /* Unified color for header section text */
+           margin-bottom: 20px; /* Space below the text */
+       }
+   
+   
+   .close-button {
+     color: #aaa;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+   }
+   
+   .close-button:hover,
+   .close-button:focus {
+     color: black;
+     text-decoration: none;
+     cursor: pointer;
+   }
+   
+   
+   
+   #header-section .explanatory-text h2 {
+               font-size: 28px; 
+               color: #2C3E50;
+               margin-bottom: 20px;
+           }
+   
+           #header-section .explanatory-text p {
+               font-size: 20px; 
+               color: #2C3E50;
+               margin-bottom: 30px;
+           }
+   
+           .darker {
+       font-size: 18px; /* size of hyperlink text */
+    }
+    
+    #services, #results {
+       padding-top: 0;
+       margin-top: 1;
+   }
+   
+   
+    #search-results {
+           width: 100%; /* Adjust this value as needed */
+           max-width: 1600px; /* Optional: sets a maximum width */
+           margin: 0 auto; /* Centers the box */
+       }
+       #resultsTabs, #tabContent {
+           width: 100%; /* Ensures they take the full width of #search-results */
+       }
+       #loadingSpinner {
+       display: none; /* Initially hidden */
+       justify-content: center; /* Center horizontally */
+       align-items: center; /* Center vertically */
+       position: fixed; /* Or absolute, depending on the use case */
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background-color: rgba(255, 255, 255, 0.5); /* Optional: slight white overlay */
+       z-index: 1000; /* Ensure it's above other content */
+   }
+   
+   .spinner {
+       border: 4px solid rgba(0, 0, 0, 0.1);
+       width: 50px;
+       height: 50px;
+       border-radius: 50%;
+       border-left-color: #09f;
+       animation: spin 1s ease infinite;
+   }
+   
+   @keyframes spin {
+       0% {
+           transform: rotate(0deg);
+       }
+       100% {
+           transform: rotate(360deg);
+       }
+   }
+   
+   .publication-item {
+       padding-bottom: 10px; /* Add some space at the bottom */
+       margin-bottom: 10px; /* Add additional space below the border */
+       border-bottom: 1px solid #ccc; /* Thin, faint grey line */
+   }
+
+    
+   .study-item, .programme-item, .publication-item, .dataset-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    border: none !important; /* Remove any borders */
+    padding: 0 !important; /* Remove any padding */
+}
+.study-item .title-link, .programme-item .title-link, .publication-item .title-link, .dataset-item .title-link {
+    display: inline-block !important;
+    max-width: calc(100% - 200px) !important; /* Adjusted width */
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+.study-item .provider-name, .programme-item .provider-name, .publication-item .provider-name, .dataset-item .provider-name {
+    display: inline-block !important;
+    max-width: 280px !important; /* Adjusted width */
+    text-align: right !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+     .description {
+        font-size: 0.9em !important; /* Adjust the size as needed */
+        margin-top: 2px !important; /* Add some spacing if needed */
+	 white-space: normal !important; /* Allow normal wrapping */
+        overflow: visible !important; /* Allow overflow to be visible */
+	display: block !important; /* Ensure it is a block element */
+	 border: none !important; /* Remove any borders */
+    }
+
+
+
+
+    #header-section .intro-text {
+        color: #2C3E50 !important; /* Darker text color for better contrast */
+    }
+    #header-section .intro-text p {
+        color: #2C3E50 !important; /* Darker text color for better contrast */
+        font-weight: bold !important; /* Bold text */
+        font-size: 1.2em !important; /* Ensure paragraph text retains its size */
+    }
+    #header-section .skills {
+        display: block;
+        text-align: center;
+        font-size: 2em;
+        font-weight: bold !important; /* Make the title bold */
+        margin-bottom: 10px;
+        color: #2C3E50 !important; /* Ensure title has the same color */
+    }
+
+    /* Adjust list items to match paragraph text style without affecting paragraph size */
+    #header-section ul li {
+        font-size: 1.2em; /* Match paragraph font size */
+        color: #2C3E50; /* Match the color with the paragraph text */
+        line-height: 1.5; /* Optional: for better readability */
+        font-weight: bold !important; /* Match paragraph font weight */
+    }
+    
+    /* Ensure anchor tags within list items also match the style */
+    #header-section ul li a {
+        color: #2C3E50;
+        text-decoration: underline; 
+    }
+    
+    #header-section ul li a:hover {
+        text-decoration: underline; /* Underline on hover for clarity */
+    }
+
+
+ul.footer_menu
+{
+  list-style-type: none;
+  margin: 0;
+  padding-left: auto;
+  padding-right: auto;
+  text-align: center;
+  overflow: hidden;
+}
+
+ul.footer_menu li
+{
+ // float: left;
+  display: inline-block;
+
+}
+
+ul.footer_menu li a
+{
+  display: block;
+  text-align: center;
+  padding: 16px;
+}

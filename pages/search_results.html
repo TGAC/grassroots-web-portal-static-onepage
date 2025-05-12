@@ -1,0 +1,506 @@
+    
+    <!-- Search Box Section -->
+<header id="header-section" class="masthead"
+style="background-image: url('img/nature-2571086_1920_40_opac.png');background-position: center; text-align: justify ! important; padding-top: 0;">
+    <div class="container">
+        <section id="search" style="padding-top: 140px;  padding-bottom: 5px;">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                         
+                        <div class="explanatory-text" style="margin-bottom: 20px;">
+                            
+                            <p  style="color: #2C3E50; font-weight: bold;">Grassroots is a data sharing platform for the wheat community. Use the search box below to find resources, or scroll down to read more about the project.</p>
+                        
+
+                        <!-- Search Box -->
+                        <div class="search-box" style="border: 2px solid #2C3E50; padding: 20px; border-radius: 5px; background-color: rgba(255, 255, 255, 0.9); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <!-- Search box title and subtitle -->
+                            <div class="search-box-title" style="text-align: left; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2C3E50;">Grassroots Search</h4>
+                                <p style="margin: 0; color: #2C3E50; font-size: 14px;">Explore our system</p>
+                            </div>
+                            <!-- Search fields -->
+   														<form action="search_results.html" method="get">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <input type="text" id="keyword" class="form-control" placeholder="Enter search keyword...">
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="category" class="form-control">
+                                        <option value="All">All</option>
+                                        <option value="Dataset">Dataset</option>
+                                        <option value="Service">Service</option>
+                                        <option value="Field Trial">Field Trial</option>
+                                        <option value="Study">Study</option>
+                                        <option value="Location">Location</option>
+                                        <option value="MARTi Sample">MARTi Sample</option>
+      ?                                  <option value="Programme">Programme</option>
+                                        <option value="Publication">Publication</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-xl js-scroll-trigger" style="margin-top: 10px; background-color: #2C3E50; border: none;" value="Search">
+														</form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</header>
+
+
+
+<!-- Search results Section -->
+<header class="text-center" id="header-section">
+    <section class="success" id="services">
+        <div class="container">
+            <section id="results" style="padding-top: 5px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto text-center">
+                            <div id="search-results">
+                                <div id="search-message"></div>                                                        
+                                <div id="resultsTabs" class="tabs"></div>
+                                <div id="tabContent" class="tab-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div id="loadingSpinner" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </header>
+    
+    <script>
+    
+    function displayResults(data) {
+      // Local counters scoped within the function
+      let publicationItemCount = 0;
+      let datasetItemCount = 0;
+      let programmeItemCount = 0;
+      let studyItemCount = 0; // Counter for studies
+      let MeasuredVariableItemCount = 0; 
+      let fieldTrialItemCount = 0; // Counter for field trials
+      let locationItemCount = 0; // Counter for locations
+      let martiSampleItemCount = 0;
+      let serviceItemCount = 0; 
+
+      const tabsContainer = document.getElementById('resultsTabs');
+      const contentContainer = document.getElementById('tabContent');
+
+      // Clear previous tabs and content
+      tabsContainer.innerHTML = '';
+      contentContainer.innerHTML = '';
+
+			console.log ("**** BEGIN RESULTS ****")
+			console.log (data.results);
+			console.log ("**** END RESULTS ****")
+
+      if (data.results && data.results[0].metadata.total_hits > 0) {
+        const categoriesResults = {}; // Holds the results categorized by their type
+
+        // Group results by their category
+        data.results[0].results.forEach(result => {
+            const category = result.data.type_description || 'Other';
+            if (!categoriesResults[category]) {
+                categoriesResults[category] = [];
+            }
+            categoriesResults[category].push(result);
+        });
+
+        // Create tabs and contents for categories with results
+        Object.keys(categoriesResults).forEach((category, index) => {
+            const tab = document.createElement('li');
+            const link = document.createElement('a');
+            link.textContent = category;
+            link.href = `#tab-${index}`;
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.tab-content div').forEach(div => div.style.display = 'none');
+                document.querySelectorAll('.tabs li a').forEach(a => a.classList.remove('active'));
+                document.getElementById(`tab-${index}`).style.display = 'block';
+                link.classList.add('active');
+            });
+            tab.appendChild(link);
+            tabsContainer.appendChild(tab);
+
+            const tabContent = document.createElement('div');
+            tabContent.id = `tab-${index}`;
+            categoriesResults[category].forEach(result => {
+                const item = document.createElement('p');
+                
+                // Common structure for most categories
+                let contentHTML = '';
+                if (category === "Dataset") {
+                    if (datasetItemCount > 0) {
+                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    datasetItemCount++;
+                    const titleLink = `<a href="${result.data['so:url']}" target="_blank">${result.data['so:name']}</a>`;
+                    const authorsList = result.data.authors ? `<i>${result.data.authors.join(', ')}</i>` : '';
+                    const description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+                    }
+
+                    contentHTML += `
+                    <div class="dataset-item">
+                    <span class="title-link">${titleLink}</span>
+                    ${providerHTML}
+                    </div>
+                    ${authorsList}<br/>
+                    ${description}
+                    `;
+                } 
+                else if (category === "Study") {
+                    if (studyItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    studyItemCount++;
+                    const studyLink = server_django_url + `/fieldtrial/study/${result.data.id}`;
+                    const titleLink = `<a href="${studyLink}" target="_blank">${result.data['so:name']}</a>`;
+                    //const description = result.data['so:description'] ? `<br><span style="font-size: 0.9em;">${result.data['so:description']}</span>` : '';
+	                const description = result.data['so:description'] ? `<span class="description">${result.data['so:description']}</span>` : '<span class="description">No description available</span>';
+
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span style="font-size: 0.9em; margin-left: 10px;">${providerLogo}(${providerName})</span>`;
+                     }
+
+                    contentHTML += `
+                    <div class="study-item">
+                    <span class="title-link">${titleLink}</span>
+                    <span class="provider-name">${providerHTML}</span>
+                    </div>
+	                <div class="description">${description}</div>
+                    `;
+
+	                console.log('Study Item Count:', studyItemCount);
+                    console.log('Study Title Link:', titleLink);
+                    console.log('Study Provider:', providerHTML);
+                    console.log('Generated HTML for Study Item:', contentHTML);
+                }
+
+                else if (category === "Field Trial") {
+                    if (fieldTrialItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    } 
+                    fieldTrialItemCount++; 
+
+
+                    const trialLink = server_django_url + `/fieldtrial/trial/${result.data.id}`;
+                    const titleLink = `<a href="${trialLink}" target="_blank">${result.data['so:name']}</a>`;
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+                    }
+                    //reuse programme-item rather than create a new one
+                    contentHTML += `
+                    <div class="programme-item"> 
+                    <span class="title-link">${titleLink}</span>
+                    ${providerHTML}
+                    </div>
+                    `;
+                }
+                else if (category === "Programme") {
+                    if (programmeItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    programmeItemCount++;
+                    let programmeLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let principalInvestigator = result.data['principal_investigator'] ? result.data['principal_investigator']['so:name'] : '';
+                    let titleLink = programmeLink ? `<a style="color:#18bc9c !important;" href="${programmeLink}" target="_blank">${result.data['so:name']}</a>` : `<i>${result.data['so:name']}</i>`;
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span style="font-size: 0.9em;">${providerLogo}(${providerName})</span>`;
+                    }
+
+                    contentHTML += `
+                    <div class="programme-item">
+                    <span class="title-link">${titleLink}</span>
+                    <span class="provider-name">${providerHTML}</span>
+                    </div>
+                    `;
+                    if (principalInvestigator) {
+                    contentHTML += `<br/>Principal Investigator: <i>${principalInvestigator}</i><br/>`;
+                    }
+                    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
+                    contentHTML += description;
+                }
+
+                else if (category === "Publication") {
+                    if (publicationItemCount > 0) {                        
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    publicationItemCount++;
+                    let publicationLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let authorsText = result.data['author'] ? result.data['author'] : 'Unknown Author';
+                    let authors = authorsText.replace(/;/g, ',');
+                    let title = result.data['so:name'];
+                    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+                    }
+
+                    // Combine the title and provider
+                    const titleWithProvider = publicationLink ? 
+                    `<a style="color:#18bc9c !important;" target="_blank" href="${publicationLink}">${title}</a>` : 
+                    `<i>${title}</i>`;
+
+                    contentHTML += `
+                    <div class="publication-item">
+                    <span class="title-link">${titleWithProvider}</span>
+                    ${providerHTML}
+                    </div>
+                    <i>${authors}</i><br/>
+                    <div class="description">${description}</div>
+        
+                    `;              
+                } else if (category === "MARTi Sample") {
+                    if (martiSampleItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    martiSampleItemCount++;
+                    let sampleLink = result.data['so:url'] ? result.data['so:url'] : '';
+                    let title = result.data['so:name'];
+                    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
+                    let siteName = result.data['site_name'] ? result.data['site_name'] : '';
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+                    }
+
+                    // Reuse programme-item class for consistency
+                    contentHTML += `
+                    <div class="programme-item">
+                    <span class="title-link">${sampleLink ? `<a style="color:#18bc9c !important;" href="${sampleLink}" target="_blank">${title}</a>` : title}</span>
+                    ${providerHTML}
+                    </div>
+                    <i>${description}</i><br/>Site: ${siteName}
+                    `;
+                }
+                else if (category === "Service") {
+                    if (serviceItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    serviceItemCount++;
+                    let title = result.data['service'] ? result.data['service'] : 'No Title Available';
+                    let serviceName = result.data['so:name'] ? result.data['so:name'] : '';
+                    let description = result.data['so:description'] ? `<div class="description">${result.data['so:description']}</div>` : '<div class="description">No description available</div>';
+                    let payloadUri = result.data['payload'] ? encodeURIComponent(JSON.stringify(result.data['payload'])) : '';
+                    let serviceLink = `${server_django_url}/service/payload/${payloadUri}`;
+    
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+                    }
+    
+                    // Reuse programme-item class for consistency
+                    const titleWithProvider = payloadUri ? 
+                    `<a style="color:#18bc9c !important;" class="newstyle_link" href="${serviceLink}" target="_blank">${title}</a>` : 
+                    `<i>${title}</i>`;
+
+                    contentHTML += `
+                    <div class="programme-item">
+                    <span class="title-link">${titleWithProvider}</span>
+                    ${providerHTML}
+                    </div>
+                    <b>${serviceName}</b><br/>
+                    ${description}<br/>
+                    `;
+                }
+                else if (category === "Measured Variable") {
+                    if (MeasuredVariableItemCount > 0) {
+                        contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    MeasuredVariableItemCount++;
+                    const title = result.data['so:name'];
+                    const unitName = result.data.variable['so:name'];
+                    const trait = result.data.trait['so:name'];
+                    const traitDescription = result.data.trait['so:description'];
+                    //contentHTML = `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: ${traitDescription}`;
+                    contentHTML += `<strong>${title}</strong><br>Trait ontology name: ${unitName}<br><i>${trait}</i>: <div class="description">${traitDescription}</div>`;
+
+                }
+                else if (category === "Location") {
+                    if (locationItemCount > 0) {
+                    contentHTML += `<hr style="border-top: 2px solid #888; margin-top: 10px; margin-bottom: 10px;">`;
+                    }
+                    locationItemCount++;
+                    const title = result.data['so:name'];
+
+                    // Check for the provider information
+                    let providerHTML = '';
+                    if (result.data.provider && result.data.provider['so:name']) {
+                    const providerName = result.data.provider['so:name'];
+                    const providerLogo = result.data.provider['so:logo'] ? `<img src="${result.data.provider['so:logo']}" alt="${providerName} Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;">` : '';
+                    providerHTML = `<span class="provider-name">${providerLogo}(${providerName})</span>`;
+                    }
+                    // Reuse programme-item class for consistency
+                    contentHTML += `
+                    <div class="programme-item">
+                    <span class="title-link">${title}</span>
+                    ${providerHTML}
+                    </div>
+                    `;
+                }
+                else {
+                    // Default display for other categories
+                    contentHTML = result.title;
+                }
+
+                item.innerHTML = contentHTML;
+                tabContent.appendChild(item);
+            });
+            contentContainer.appendChild(tabContent);
+
+            // Automatically activate the first tab
+            if (index === 0) {
+                link.classList.add('active');
+                tabContent.style.display = 'block';
+            }
+        });
+          } else {
+         contentContainer.innerHTML = '<p>No results found.</p>';
+        }
+     }
+
+     document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const keyword = params.get('keyword');
+      const category = params.get('category');
+
+      // Initialize the search fields with current search parameters, if any
+      document.getElementById('keyword').value = keyword || '';
+      document.getElementById('category').value = category || 'All';
+
+      sendSearchRequest(keyword, category); // Call search on page load with current parameters
+      }
+    );
+
+
+    
+    function sendSearchRequest(keyword, category) {
+        // Show the spinner
+        document.getElementById('loadingSpinner').style.display = 'flex';
+    
+        const categoryValue = category === "All" ? "<ANY>" : category;
+        let hasTimedOut = false; 
+    
+        var searchRequest = {
+            "services": [{
+                "start_service": true,
+                "so:alternateName": "search",
+                "parameter_set": {
+                    "level": "simple",
+                    "parameters": [
+                        { "param": "SS Keyword Search", "current_value": keyword },
+                        { "param": "SS Facet", "current_value": categoryValue },
+                        { "param": "SS Results Page Number", "current_value": 0 },
+                        { "param": "SS Results Page Size", "current_value": 500 }
+                    ]
+                }
+            }]
+        };
+    
+        // Set a timeout limit for the search (e.g., 10 seconds)
+        const searchTimeout = setTimeout(() => {
+            hasTimedOut = true; // Indicate that the request has timed out
+            document.getElementById('loadingSpinner').style.display = 'none';
+            // Inform the user that the search took too long
+            document.getElementById('search-results').innerHTML = `<p>Search timed out. Please try again.</p>`;
+        }, 8000); // 10000 milliseconds = 10 seconds
+    
+    
+				console.log ("server_backend_url: " + server_backend_url);
+
+        fetch(server_backend_url + "/public_backend", {
+        //fetch('https://grassroots.tools/grassroots/public_backend', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(searchRequest),
+        })
+        .then(response => response.json())
+        .then(data => {
+            clearTimeout(searchTimeout); // Cancel the timeout if the search completes in time
+            if (!hasTimedOut) { // Proceed only if there hasn't been a timeout
+                displayResults(data);
+                document.getElementById('loadingSpinner').style.display = 'none';
+            }
+        })
+        .catch((error) => {
+            clearTimeout(searchTimeout); // Ensure to clear the timeout 
+            if (!hasTimedOut) { // Show error only if there hasn't been a timeout
+                console.error('Error:', error);
+                displayError(); // Function to display an error message
+            }
+        });
+    }
+    
+    function sendNewSearchRequest() {
+        var keyword = document.getElementById('keyword').value.trim();
+        var category = document.getElementById('category').value;
+        var messageElement = document.getElementById('search-message'); // Get the dedicated message element
+    
+        // Clear any previous message
+        messageElement.innerHTML = '';
+    
+        if (!keyword) {
+            // If keyword is empty, display a message in the dedicated message element and do not proceed with the search
+            messageElement.innerHTML = `<p>Please enter a search term.</p>`;
+            // Optionally, you might want to focus the search input field to prompt the user to type
+            document.getElementById('keyword').focus();
+        } else {
+            // If there is a keyword, proceed with the search request
+            sendSearchRequest(keyword, category);
+        }
+    }
+    
+    function displayError() {
+    document.getElementById('loadingSpinner').style.display = 'none'; // Hide the spinner
+    document.getElementById('search-results').innerHTML = `<p>There was an error processing your search. Please try again.</p>`;
+    resetPageState(); // Reset the page state after error
+    }
+
+    function resetPageState() {
+    document.getElementById('loadingSpinner').style.display = 'none';
+    // Additional reset actions if needed (e.g., background color, disabling inputs)
+    }
+    </script>
+
+
+    

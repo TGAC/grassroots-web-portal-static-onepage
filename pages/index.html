@@ -1,0 +1,72 @@
+    <!-- Search Box Section -->
+<header id="header-section" class="masthead"
+style="background-image: url('img/nature-2571086_1920_40_opac.png');background-position: center; text-align: justify ! important; padding-top: 0;">
+    <div class="container">
+        <section id="search" style="padding-top: 140px;  padding-bottom: 5px;">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                         
+                        <div class="explanatory-text" style="margin-bottom: 20px;">
+                            
+                            <p  style="color: #2C3E50; font-weight: bold;">Grassroots is a data sharing platform for the wheat community. Use the search box below to find resources, or scroll down to read more about the project.</p>
+                        
+
+                        <!-- Search Box -->
+                        <div class="search-box" style="border: 2px solid #2C3E50; padding: 20px; border-radius: 5px; background-color: rgba(255, 255, 255, 0.9); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <!-- Search box title and subtitle -->
+                            <div class="search-box-title" style="text-align: left; margin-bottom: 15px;">
+                                <h4 style="margin: 0; color: #2C3E50;">Grassroots Search</h4>
+                                <p style="margin: 0; color: #2C3E50; font-size: 14px;">Explore our system</p>
+                            </div>
+                            <!-- Search fields -->
+
+														<form action="search_results.html" method="get">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <input type="text" id="keyword" class="form-control" placeholder="Enter search keyword...">
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="category" class="form-control">
+                                        <option value="All">All</option>
+                                        <option value="Dataset">Dataset</option>
+                                        <option value="Service">Service</option>
+                                        <option value="Field Trial">Field Trial</option>
+                                        <option value="Study">Study</option>
+                                        <option value="Location">Location</option>
+                                        <option value="MARTi Sample">MARTi Sample</option>
+      ?                                  <option value="Programme">Programme</option>
+                                        <option value="Publication">Publication</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-xl js-scroll-trigger" style="margin-top: 10px; background-color: #2C3E50; border: none;" value="Search">
+														</form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</header>
+
+
+<script>
+    function sendSearchRequest() {
+        var keyword = document.getElementById('keyword').value.trim(); // Trim to remove any leading/trailing white spaces
+        var category = document.getElementById('category').value;
+
+        if (keyword === "") {
+            // Display an alert or message on the page that a search term is required.
+            alert("Please enter a search term.");
+        } else {
+            // Construct the URL for results.html with query parameters for keyword and category
+            var resultsUrl = `search_results.html?keyword=${encodeURIComponent(keyword)}&category=${encodeURIComponent(category)}`;
+
+            // Redirect the browser to the results page
+            window.location.href = resultsUrl;
+        }
+    }
+</script>
+    
