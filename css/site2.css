@@ -29,6 +29,12 @@
            text-decoration: none; /* No underline */
        }
    
+   
+    .tabs li a.active {
+           font-weight: bold;
+       }
+   
+
        /* Tab content styling */
        .tab-content div {
            display: none; /* Initially hide all content */
