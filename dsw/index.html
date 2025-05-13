@@ -10,6 +10,53 @@
     <meta http-equiv="Expires" content="0" />
     <title>Grassroots</title>
     
+
+
+   <!-- Analytics -->
+
+<script>
+// Define dataLayer and the gtag function.
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+// Set default consent to 'denied' as a placeholder
+// Determine actual values based on your own requirements
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied'
+});
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9RQFH7EWX4">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+  gtag('config', 'G-9RQFH7EWX4');
+</script>
+
+<!-- Create one update function for each consent parameter -->
+<script>
+  function consentGrantedAdStorage() {
+    gtag('consent', 'update', {
+      'ad_storage': 'granted'
+    });
+  }
+</script>
+
+
+<script>
+window.acceptrics = {};
+localStorage.setItem("__acceptrics_conf", JSON.stringify({"gcmAdvanced":"true","backgroundColor":"#000000","fontColor":"#ffffff","geoArea":"worldwide","accountNum":"svt373q5","useTranslation":"false"})); document.addEventListener("__acceptrics_loaded", () =>{window.acceptrics.initializeSettings();});
+</script>
+<script src="https://cdn.acceptrics.com?n=svt373q5"></script>
+
+
+
     <!-- Core theme CSS freelancer (includes Bootstrap)-->
     <link href="/static/fieldtrial/css/styles.css" rel="stylesheet"> 
     <!-- font awesome -->
@@ -31,57 +78,12 @@
     <!--<link href="https://grassroots.tools/css/site.css" rel="stylesheet">  -->
     <link rel="stylesheet" href="/static/fieldtrial/overrides/style.css" type="text/css"/>
     
+    <link rel="stylesheet" href="/css/site2.css" type="text/css"/>
 
 
-    <style>
-        /* General text styling for the header section */
-        #header-section .intro-text {
-            color: #2C3E50 !important; /* Darker text color for better contrast */
-        }
-        #header-section .intro-text p {
-            color: #2C3E50 !important; /* Darker text color for better contrast */
-            font-weight: bold !important; /* Bold text */
-            font-size: 1.2em !important; /* Ensure paragraph text retains its size */
-        }
-        #header-section .skills {
-            display: block;
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold !important; /* Make the title bold */
-            margin-bottom: 10px;
-            color: #2C3E50 !important; /* Ensure title has the same color */
-        }
-    
-        /* Adjust list items to match paragraph text style without affecting paragraph size */
-        #header-section ul li {
-            font-size: 1.2em !important; /* Match paragraph font size */
-            color: #2C3E50 !important; /* Match the color with the paragraph text */
-            line-height: 1.5 !important; /* Optional: for better readability */
-            font-weight: bold !important; /* Match paragraph font weight */
-        }
-    
-        /* Ensure anchor tags within list items also match the style */
-        #header-section ul li a {
-            color: #2C3E50 !important; /* Ensure hyperlinks have the same color */
-            text-decoration: underline !important; /* Underline text to indicate hyperlinks */
-        }
-    
-        #header-section ul li a:hover {
-            text-decoration: underline !important; /* Keep underline on hover for clarity */
-        }
-    
-        /* Ensure anchor tags within paragraphs also match the style */
-        #header-section .intro-text p a {
-            color: #2C3E50 !important; /* Ensure hyperlinks have the same color */
-            text-decoration: underline !important; /* Underline text to indicate hyperlinks */
-        }
-    
-        #header-section .intro-text p a:hover {
-            text-decoration: underline !important; /* Keep underline on hover for clarity */
-        }
-    </style>
-    
-    
+    <script type="text/javascript" src="/static/scripts/config.js"></script>
+
+
 
 </head>
 <body>
@@ -95,32 +97,31 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="../services.html">Services</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="services.html">Services</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/newdocs/">Docs</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://grassroots.tools/documentation/">Docs</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="https://opendata.earlham.ac.uk/">Data</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank" href="../about.html">About</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="about.html">About</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_self" href="./">DSW</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="dsw/index.html">DSW</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="../contact.html">Contact</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" target="_blank"  href="contact.html">Contact</a>
                     </li>
                 </ul>
                 <img class="navbar-nav navbar-right" style="height:50px;margin-left:50px;"
-                src="../img/logo-white.png"/>
+                src="img/logo-white.png"/>
             </div>
         </div>
     </nav>
     
-    <!-- Page Content for new DSW -->
-    <!-- Header -->
+
     <header id="header-section" class="masthead" style="background-image: url('../img/wheat_40_opac_gimp.png');background-position: center; text-align: justify !important;">
         <div class="container">
             <div class="intro-text">
@@ -145,7 +146,8 @@
         </div>
     </header>
     
-    <!--footer-->
+ 
+  <!--footer-->
 <footer class="text-center">
     <div class="footer-above">
         <div class="container">
@@ -165,6 +167,9 @@
                         at the Earlham Institute by members of the e‐Infrastructure group.</p>
                 </div>
             </div>
+
+
+
             <!-- First Row for Earlham Institute and Project Code -->
             <div class="row">
                 <div class="footer-col col-md-6" style="text-align: left !important;">
@@ -195,13 +200,29 @@
                     </ul>
                 </div>
             </div>
+
+<div class="row">
+<div class="col-lg-12">
+<ul class="footer_menu">
+<li>
+<a href="terms.html">Terms of Use</a>
+</li>
+
+<li>
+<a href="privacy.html">Privacy</a>
+</li>
+
+</ul>
+</div>
+
+</div>
         </div>
     </div>
     <div class="footer-below">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    &copy; 2017 - 2024 Brought to you by <a href="http://www.earlham.ac.uk/" target="_blank">Earlham
+                    &copy; 2017 - 2025 Brought to you by <a href="http://www.earlham.ac.uk/" target="_blank">Earlham
                     Institute</a>
                 </div>
             </div>
@@ -210,6 +231,24 @@
 </footer>
 
     <!-- Additional scripts if any -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Define the extra string to add to the base URL
+        const extraString = "test"; // BETA or TEST
+
+        // Get all the navigation links in the navbar
+        const navLinks = document.querySelectorAll('#mainNav .nav-link');
+
+        // Iterate over each link and update the href attribute
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            // Check if the href is a relative URL
+            if (href && !href.startsWith('http')) {
+                ///link.setAttribute('href', `/${extraString}/${href}`);
+            }
+        });
+    });
+   </script>
         
 </body>
 </html>
